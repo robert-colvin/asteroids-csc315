@@ -52,6 +52,10 @@ void display(void)
 	glEnd();
 	
 	glutSwapBuffers();
+
+	//Arrow stuff goes below
+
+
 }
 void mouse(int button, int state, int x, int y) 
 {
