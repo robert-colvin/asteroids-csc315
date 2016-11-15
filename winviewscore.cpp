@@ -54,7 +54,7 @@ void display(void)
 	glutSwapBuffers();
 
 	//Arrow stuff goes below
-
+	//80085
 
 }
 void mouse(int button, int state, int x, int y) 
