@@ -10,7 +10,8 @@ using namespace std;
 #define VIEWPORT_MAX 550
 #define VIEWPORT_MIN 50*/
 
-float winWidth, winHeight, viewWidth;
+float winWidth, winHeight, viewWidth, accuracy;
+int shotsFired, asteroidsHit, asteroidsOnScreen;
 
 void myinit( int winSize )
 {
@@ -27,11 +28,10 @@ void myinit( int winSize )
       glMatrixMode(GL_MODELVIEW);
 }
 void display(void)
-{
+{//kjrgbvkjrouerh8hkjeqihfklqi8fu3owp89qwkjg uq3tegueqijoteoheugepenisiuwefoi7guyewf87e7guveayg73434ekeayvt7u3r8gf3hgtu0734yr9
 	glClear(GL_COLOR_BUFFER_BIT);   //clear window
 	glColor3f(1.0,1.0,1.0);		//set color to white
 //	glRecti(50.0,100.0, viewWidth+50, viewWidth+50);	//draw rectangular viewport
-	
 	//drawing octagonal viewport
 	glBegin(GL_POLYGON);
 		//left-most vertices
