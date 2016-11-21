@@ -1,5 +1,6 @@
 using namespace std;
 
+#include <string.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
@@ -11,7 +12,8 @@ using namespace std;
 #define VIEWPORT_MIN 50*/
 
 float winWidth, winHeight, viewWidth, accuracy;
-int shotsFired, asteroidsHit, asteroidsOnScreen;
+int shotsFired, asteroidsHit;
+int asteroidsOnScreen = 50;
 
 void myinit( int winSize )
 {
@@ -27,12 +29,68 @@ void myinit( int winSize )
                  0.0, (float) winHeight);
       glMatrixMode(GL_MODELVIEW);
 }
+
+void printToScoreboard(float scoreboardHeight)
+{
+	int i,len;
+
+	char shots[] = "Shots fired: ";
+	char hit[] = "Asteroids hit: ";
+	char onscreen[] = "Asteroids on screen: ";  
+	char accuracy[] = "% of shots on target: ";
+
+	void *font = GLUT_STROKE_ROMAN;
+
+	glColor3f(1.0,0.0,0.0);
+
+	glPushMatrix();
+
+	glTranslatef(0.0, scoreboardHeight-25, 0.0);
+	glScalef(0.125,0.125,1.0);
+	len = (int) strlen(shots);
+	for(i=0;i<len;i++)
+		glutStrokeCharacter(font,shots[i]);
+
+	glPopMatrix();
+
+	glPushMatrix();
+
+	glTranslatef(0.0, /*scoreboardHeight-55*/10.0, 0.0);
+	glScalef(0.125,0.125,1.0);
+	len = (int) strlen(hit);
+	for(i=0;i<len;i++)
+		glutStrokeCharacter(font,hit[i]);
+
+	glPopMatrix();
+	
+
+	glPushMatrix();
+
+	glTranslatef(winWidth/2.5, scoreboardHeight-25, 0.0);
+	glScalef(0.125,0.125,1.0);
+	len = (int) strlen(onscreen);
+	for(i=0;i<len;i++)
+		glutStrokeCharacter(font,onscreen[i]);
+
+	glPopMatrix();
+	
+	glPushMatrix();
+
+	glTranslatef(winWidth/2.5, /*scoreboardHeight-55*/10.0, 0.0);
+	glScalef(0.125,0.125,1.0);
+	len = (int) strlen(accuracy);
+	for(i=0;i<len;i++)
+		glutStrokeCharacter(font,accuracy[i]);
+
+	glPopMatrix();
+}
+
 void display(void)
-{//kjrgbvkjrouerh8hkjeqihfklqi8fu3owp89qwkjg uq3tegueqijoteoheugepenisiuwefoi7guyewf87e7guveayg73434ekeayvt7u3r8gf3hgtu0734yr9
+{
 	glClear(GL_COLOR_BUFFER_BIT);   //clear window
 	glColor3f(1.0,1.0,1.0);		//set color to white
-//	glRecti(50.0,100.0, viewWidth+50, viewWidth+50);	//draw rectangular viewport
-	//drawing octagonal viewport
+//	glRecti(50.0,100.0, viewWidth+50, viewWidth+50);
+//	//drawing octagonal viewport
 	glBegin(GL_POLYGON);
 		//left-most vertices
 		glVertex2f(50.0, viewWidth*(2.0/3.0)+125.0);	
@@ -50,6 +108,19 @@ void display(void)
 		glVertex2f(50.0+viewWidth*(2.0/3.0), 125.0+viewWidth);
 		glVertex2f(50.0+viewWidth*(1.0/3.0), 125.0+viewWidth);
 	glEnd();
+
+	//drawing rectangular scoreboard below viewport starting w/ bottom left corner and going ccw
+	
+	float scoreboardHeight = winHeight-(winHeight-100);
+	glBegin(GL_POLYGON);
+		glVertex2f(1.0,1.0);
+		glVertex2f(winWidth-1,1.0);
+		glVertex2f(winWidth-1, scoreboardHeight);
+		glVertex2f(1.0, scoreboardHeight);
+
+	glEnd();
+
+	printToScoreboard(scoreboardHeight);
 	
 	glutSwapBuffers();
 }
@@ -63,7 +134,7 @@ void mouse(int button, int state, int x, int y)
 void keyboard( unsigned char key, int x, int y )
 { 
     if ( key == 'q' || key == 'Q') exit(0);
-;;;;;;;;;;;;;;;;
+
 }
 int main(int argc, char** argv)
 {
