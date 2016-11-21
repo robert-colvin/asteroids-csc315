@@ -1,19 +1,15 @@
 using namespace std;
 
 #include <string.h>
+#include <sstream>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
 #include <iostream>
 
-/*#define WINDOW_MAX 600
-#define WINDOW_MIN 0
-#define VIEWPORT_MAX 550
-#define VIEWPORT_MIN 50*/
 
-float winWidth, winHeight, viewWidth, accuracy;
-int shotsFired, asteroidsHit;
-int asteroidsOnScreen = 50;
+float winWidth, winHeight, viewWidth, scoreboardHeight, scoreboardWidth;
+int shotsFired = 0;  int asteroidsHit = 0;  int asteroidsOnScreen = 50;//  float accuracy = 00.00;
 
 void myinit( int winSize )
 {
@@ -30,58 +26,102 @@ void myinit( int winSize )
       glMatrixMode(GL_MODELVIEW);
 }
 
-void printToScoreboard(float scoreboardHeight)
+void printToScoreboard()
 {
 	int i,len;
-
-	char shots[] = "Shots fired: ";
+//	char *ss = itoa(shotsFired);
+	char shots[] = "Shots fired: ";// + string(ss);
 	char hit[] = "Asteroids hit: ";
 	char onscreen[] = "Asteroids on screen: ";  
-	char accuracy[] = "% of shots on target: ";
+	char accuracyPrint[] = "Accuracy percentage: ";
 
 	void *font = GLUT_STROKE_ROMAN;
 
-	glColor3f(1.0,0.0,0.0);
+	ostringstream printyS;
+	string printy;
+
+	glColor3f(0.0,0.0,0.0);
 
 	glPushMatrix();
 
 	glTranslatef(0.0, scoreboardHeight-25, 0.0);
-	glScalef(0.125,0.125,1.0);
+	glScalef(scoreboardWidth/2800,0.125,0.0);
 	len = (int) strlen(shots);
 	for(i=0;i<len;i++)
 		glutStrokeCharacter(font,shots[i]);
 
+	glColor3f(1.0,0.0,0.0);
+	printyS << shotsFired;
+	printy = printyS.str();
+	len = (int) strlen(&printy[0]); cout << printy<<endl;
+	for(i=0;i<len;i++)
+		glutStrokeCharacter(font, printy[i]);
+
+	printyS.str("");
 	glPopMatrix();
-
+//-----------------------------------------------------------------------------------------
 	glPushMatrix();
+	glColor3f(0.0,0.0,0.0);
 
-	glTranslatef(0.0, /*scoreboardHeight-55*/10.0, 0.0);
-	glScalef(0.125,0.125,1.0);
+	glTranslatef(0.0, 10.0, 0.0);
+	glScalef(scoreboardWidth/2800,0.125,1.0);
 	len = (int) strlen(hit);
 	for(i=0;i<len;i++)
 		glutStrokeCharacter(font,hit[i]);
 
+	glColor3f(1.0,0.0,0.0);
+	printyS << asteroidsHit;
+	printy = printyS.str();
+	len = (int) strlen(&printy[0]);	cout << printy <<endl;
+	for(i=0;i<len;i++)
+		glutStrokeCharacter(font, printy[i]);
+
+	printyS.str("");
 	glPopMatrix();
 	
-
+//--------------------------------------------------------------------------------------------
+	glColor3f(0.0,0.0,0.0);
 	glPushMatrix();
 
 	glTranslatef(winWidth/2.5, scoreboardHeight-25, 0.0);
-	glScalef(0.125,0.125,1.0);
+	glScalef(scoreboardWidth/2800,0.125,1.0);
 	len = (int) strlen(onscreen);
 	for(i=0;i<len;i++)
 		glutStrokeCharacter(font,onscreen[i]);
 
+	glColor3f(1.0,0.0,0.0);
+	printyS << asteroidsOnScreen;
+	printy = printyS.str();
+	len = (int) strlen(&printy[0]); cout << printy << endl;
+	for(i=0;i<len;i++)
+		glutStrokeCharacter(font, printy[i]);
+
+	printyS.str("");
 	glPopMatrix();
-	
+//----------------------------------------------------------------------------------------------	
+	glColor3f(0.0,0.0,0.0);
 	glPushMatrix();
 
-	glTranslatef(winWidth/2.5, /*scoreboardHeight-55*/10.0, 0.0);
-	glScalef(0.125,0.125,1.0);
-	len = (int) strlen(accuracy);
+	glTranslatef(winWidth/2.5, 10.0, 0.0);
+	glScalef(scoreboardWidth/2950,0.12,1.0);
+	len = (int) strlen(accuracyPrint);
 	for(i=0;i<len;i++)
-		glutStrokeCharacter(font,accuracy[i]);
+		glutStrokeCharacter(font,accuracyPrint[i]);
 
+	float accuracy = (float)asteroidsHit/shotsFired;
+	if (shotsFired != 0)
+	{
+		printyS << accuracy;
+		printy = printyS.str();
+	//	len = (int) strlen(&printy[0]); cout << printy << endl;
+	}
+	else
+		printy = "00.00";
+	
+	glColor3f(1.0,0.0,0.0);
+	for(i=0;i<5;i++)
+		glutStrokeCharacter(font, printy[i]);
+	printyS.str("");
 	glPopMatrix();
 }
 
@@ -111,7 +151,6 @@ void display(void)
 
 	//drawing rectangular scoreboard below viewport starting w/ bottom left corner and going ccw
 	
-	float scoreboardHeight = winHeight-(winHeight-100);
 	glBegin(GL_POLYGON);
 		glVertex2f(1.0,1.0);
 		glVertex2f(winWidth-1,1.0);
@@ -120,7 +159,7 @@ void display(void)
 
 	glEnd();
 
-	printToScoreboard(scoreboardHeight);
+	printToScoreboard();
 	
 	glutSwapBuffers();
 }
@@ -144,6 +183,8 @@ int main(int argc, char** argv)
 	winWidth = viewWidth+100;
 	winHeight = viewWidth + 150;
 
+	scoreboardWidth = winWidth-2;
+	scoreboardHeight = winHeight-(winHeight-100);
     glutInit(&argc,argv);
     glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB); 
     glutInitWindowSize(winWidth,winHeight); 
