@@ -63,7 +63,7 @@ void mouse(int button, int state, int x, int y)
 void keyboard( unsigned char key, int x, int y )
 { 
     if ( key == 'q' || key == 'Q') exit(0);
-
+;;;;;;;;;;;;;;;;
 }
 int main(int argc, char** argv)
 {
