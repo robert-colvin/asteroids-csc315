@@ -122,6 +122,9 @@ if(numMissiles != 0){
 
 		cout << missiles->origin->x << endl;
 
+		struct vertex *a = new vertex;
+
+		a->x = 
 		//go through all possible missiles on screen and print all of them out
 		glBegin(GL_LINE_LOOP);
 			glVertex2f(missiles->edge->info->x+missiles->origin->x, missiles->edge->info->y+missiles->origin->y);
