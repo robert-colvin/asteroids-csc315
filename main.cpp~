@@ -67,7 +67,7 @@ void keyboard( unsigned char key, int x, int y )
 	if (key == 'd')
 		asteroidsOnScreen--;	
 
-	//glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT);
 	viewportInit();
 	glutPostRedisplay();
 	glutSwapBuffers();

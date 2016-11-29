@@ -10,7 +10,7 @@
 
 using namespace std;
 
-extern float winWidth, winHeight, viewWidth, scoreboardHeight, scoreboardWidth;
+extern float winWidth, winHeight, viewWidth, accuracy;
 extern int shotsFired, asteroidsHit, asteroidsOnScreen;
 
 void viewportInit();
