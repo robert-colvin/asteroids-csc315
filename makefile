@@ -21,7 +21,7 @@ window.o : window.cpp
 	$(CC) $(CFLAGS) -c window.cpp
 
 player.o : player.cpp
-	gcc $(CFLAGS) -c player.cpp
+	$(CC) $(CFLAGS) -c player.cpp
 
 clean :
 	rm *.o

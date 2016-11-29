@@ -37,8 +37,8 @@ void myinit( int winSize )
 void display(void)
 {
 
-	int test = Player->info->x;
-
+	//int test = Player->info->x;
+	int test = 1;
 	cout << "hello World \n" << endl;
 	cout << test  << endl;
 
