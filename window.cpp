@@ -53,7 +53,7 @@ void printToScoreboard()
 	glColor3f(1.0,0.0,0.0);
 	printyS << shotsFired;
 	printy = printyS.str();
-	len = (int) strlen(&printy[0]); cout << printy<<endl;
+	len = (int) strlen(&printy[0]);
 	for(i=0;i<len;i++)
 		glutStrokeCharacter(font, printy[i]);
 
@@ -72,7 +72,7 @@ void printToScoreboard()
 	glColor3f(1.0,0.0,0.0);
 	printyS << asteroidsHit;
 	printy = printyS.str();
-	len = (int) strlen(&printy[0]);	cout << printy <<endl;
+	len = (int) strlen(&printy[0]);
 	for(i=0;i<len;i++)
 		glutStrokeCharacter(font, printy[i]);
 
@@ -92,7 +92,7 @@ void printToScoreboard()
 	glColor3f(1.0,0.0,0.0);
 	printyS << asteroidsOnScreen;
 	printy = printyS.str();
-	len = (int) strlen(&printy[0]); cout << printy << endl;
+	len = (int) strlen(&printy[0]);
 	for(i=0;i<len;i++)
 		glutStrokeCharacter(font, printy[i]);
 
@@ -108,9 +108,9 @@ void printToScoreboard()
 	for(i=0;i<len;i++)
 		glutStrokeCharacter(font,accuracyPrint[i]);
 
-	float accuracy = (float)asteroidsHit/shotsFired;
 	if (shotsFired != 0)
 	{
+		float accuracy = (float)asteroidsHit/(float)shotsFired;
 		printyS << accuracy;
 		printy = printyS.str();
 	//	len = (int) strlen(&printy[0]); cout << printy << endl;
@@ -173,6 +173,16 @@ void mouse(int button, int state, int x, int y)
 void keyboard( unsigned char key, int x, int y )
 { 
     if ( key == 'q' || key == 'Q') exit(0);
+	
+	//testing output changes
+	if (key == 'a')
+		shotsFired++;
+	if (key == 's')
+		asteroidsHit++;
+	if (key == 'd')
+		asteroidsOnScreen--;	
+
+	glutPostRedisplay();
 
 }
 int main(int argc, char** argv)
