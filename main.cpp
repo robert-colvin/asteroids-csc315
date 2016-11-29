@@ -7,8 +7,8 @@
 
 #include "prototype.h"
 
-float winWidth, winHeight, viewWidth, accuracy;
-int shotsFired, asteroidsHit, asteroidsOnScreen;
+float winWidth, winHeight, viewWidth, scoreboardHeight, scoreboardWidth;
+int shotsFired = 0, asteroidsHit = 0, asteroidsOnScreen = 50;
 
 void myGlutInit(int argc, char** argv){
 
@@ -36,13 +36,17 @@ void myinit( int winSize )
 }
 void display(void)
 {
-
+	 
 	//int test = Player->info->x;
 	int test = 1;
 	cout << "hello World \n" << endl;
 	cout << test  << endl;
+	glColor3f(1.0,1.0,1.0);
+	printToScoreboard();
+	glutSwapBuffers();
 
 }
+
 void mouse(int button, int state, int x, int y) 
 {
       if ( button == GLUT_LEFT_BUTTON && state == GLUT_DOWN ) 
@@ -50,11 +54,25 @@ void mouse(int button, int state, int x, int y)
 	glutPostRedisplay();
       }
 }
+
 void keyboard( unsigned char key, int x, int y )
 { 
     if ( key == 'q' || key == 'Q') exit(0);
+	
+	//testing output changes
+	if (key == 'a')
+		shotsFired++;
+	if (key == 's')
+		asteroidsHit++;
+	if (key == 'd')
+		asteroidsOnScreen--;	
 
+	//glClear(GL_COLOR_BUFFER_BIT);
+	viewportInit();
+	glutPostRedisplay();
+	glutSwapBuffers();
 }
+
 int main(int argc, char** argv)
 {
 	cout<<"How wide would you like the viewport?"<<endl;
@@ -62,6 +80,9 @@ int main(int argc, char** argv)
 
 	winWidth = viewWidth+100;
 	winHeight = viewWidth + 150;
+	
+	scoreboardWidth = winWidth-2;
+	scoreboardHeight = winHeight-(winHeight-100);
 
 	myGlutInit(argc,argv);
 	myinit(winWidth); 
@@ -73,4 +94,3 @@ int main(int argc, char** argv)
 	glutDisplayFunc(display); 
 	glutMainLoop();
 }
-
