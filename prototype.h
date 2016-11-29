@@ -3,6 +3,14 @@
 #include <GL/glut.h>
 #include <iostream>
 
+#ifndef PROTO
+#define PROTO
+
+extern float winWidth, winHeight, viewWidth, accuracy;
+extern int shotsFired, asteroidsHit, asteroidsOnScreen;
+
+void viewportInit();
+
 struct vertex{
 
 	float x;
@@ -43,3 +51,4 @@ struct asteroid{
 	 
 
 };
+#endif
