@@ -3,7 +3,7 @@
 #define VIEWPORT_MAX 550
 #define VIEWPORT_MIN 50*/
 
-using namespace std;
+//using namespace std;
 
 #include "prototype.h"
 
@@ -35,9 +35,12 @@ void myinit( int winSize )
       glMatrixMode(GL_MODELVIEW);
 }
 void display(void)
-{//kjrgbvkjrouerh8hkjeqihfklqi8fu3owp89qwkjg uq3tegueqijoteoheugepenisiuwefoi7guyewf87e7guveayg73434ekeayvt7u3r8gf3hgtu0734yr9
+{
 
+	int test = Player->info->x;
 
+	cout << "hello World \n" << endl;
+	cout << test  << endl;
 
 }
 void mouse(int button, int state, int x, int y) 
@@ -63,6 +66,8 @@ int main(int argc, char** argv)
 	myGlutInit(argc,argv);
 	myinit(winWidth); 
 	viewportInit();
+	playerInit();
+	cout << "after player init\n" << endl;
 	glutMouseFunc(mouse);
 	glutKeyboardFunc(keyboard);
 	glutDisplayFunc(display); 

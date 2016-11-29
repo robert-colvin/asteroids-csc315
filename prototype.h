@@ -6,10 +6,13 @@
 #ifndef PROTO
 #define PROTO
 
+using namespace std;
+
 extern float winWidth, winHeight, viewWidth, accuracy;
 extern int shotsFired, asteroidsHit, asteroidsOnScreen;
 
 void viewportInit();
+void playerInit();
 
 struct vertex{
 
@@ -51,4 +54,7 @@ struct asteroid{
 	 
 
 };
+
+extern struct vList *Player;
+
 #endif

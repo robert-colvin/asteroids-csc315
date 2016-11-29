@@ -3,7 +3,7 @@ CFLAGS = -g
 COPTFLAGS = 
 LIBFLAGS = -lglut -lGLU -lGL -lm
 HEADERS = prototype.h
-OBJECTS = collision.o asteroid.o window.o
+OBJECTS = collision.o asteroid.o window.o player.o
 
 main : main.o $(OBJECTS)
 	$(CC) main.o $(OBJECTS) -o main $(LIBFLAGS)
@@ -19,6 +19,9 @@ collision.o : collision.cpp $(HEADERS)
 
 window.o : window.cpp
 	$(CC) $(CFLAGS) -c window.cpp
+
+player.o : player.cpp
+	gcc $(CFLAGS) -c player.cpp
 
 clean :
 	rm *.o
