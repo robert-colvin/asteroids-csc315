@@ -1,29 +1,60 @@
-using namespace std;
-
-#include <string.h>
-#include <sstream>
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <GL/glut.h>
-#include <iostream>
+#include "prototype.h"
 
 
-float winWidth, winHeight, viewWidth, scoreboardHeight, scoreboardWidth;
-int shotsFired = 0;  int asteroidsHit = 0;  int asteroidsOnScreen = 50;//  float accuracy = 00.00;
+void viewportInit(){
 
-void myinit( int winSize )
-{
-/* attributes */
+	glClear(GL_COLOR_BUFFER_BIT);   //clear window
+        glColor3f(1.0,1.0,1.0);         //set color to white
+        //drawing octagonal viewport
+        glBegin(GL_POLYGON);
+                //left-most vertices
+                glVertex2f(50.0, viewWidth*(2.0/3.0)+125.0);
+                glVertex2f(50.0, viewWidth*(1.0/3.0)+125.0);
 
-      glClearColor(0.0, 0.0, 0.0, 1.0); /* black background */
+		vertex lt = {50.0, viewWidth*(2.0/3.0)+125.0, 0, 1};
+		vertex lb = {50.0, viewWidth*(1.0/3.0)+125.0, 0, 1};
 
-/* set up viewing */
+                //bottom vertices
+                glVertex2f(50.0+viewWidth*(1.0/3.0), 125.0);
+                glVertex2f(50.0+viewWidth*(2.0/3.0), 125.0);
 
-      glMatrixMode(GL_PROJECTION);
-      glLoadIdentity();
-      gluOrtho2D(0.0, (float) winWidth, 
-                 0.0, (float) winHeight);
-      glMatrixMode(GL_MODELVIEW);
+		vertex bl = {50.0+viewWidth*(1.0/3.0),125.0, 0, 1};
+		vertex br = {50.0+viewWidth*(2.0/3.0),125.0, 0, 1};
+
+                //right most vertices
+                glVertex2f(50.0+viewWidth, 125.0+viewWidth*(1.0/3.0));
+                glVertex2f(50.0+viewWidth, 125.0+viewWidth*(2.0/3.0));	
+		
+		vertex rb = {50.0+viewWidth, 125.0+viewWidth*(1.0/3.0), 0, 1};		
+		vertex rt = {50.0+viewWidth, 125.0+viewWidth*(2.0/3.0), 0, 1};		
+
+                //top vertices
+                glVertex2f(50.0+viewWidth*(2.0/3.0), 125.0+viewWidth);
+                glVertex2f(50.0+viewWidth*(1.0/3.0), 125.0+viewWidth);
+
+		vertex tr = {50.0+viewWidth*(2.0/3.0), 125.0+viewWidth, 0, 1};		
+		vertex tl = {50.0+viewWidth*(1.0/3.0), 125.0+viewWidth, 0, 1};
+
+        glEnd();
+	
+		//populating clipper array
+		clipperVerts[0] = lt; clipperVerts[1] = lb;
+		clipperVerts[2] = bl; clipperVerts[3] = br;
+		clipperVerts[4] = rb; clipperVerts[5] = rt;
+		clipperVerts[6] = tr; clipperVerts[7] = tl;
+		
+	//drawing rectangular scoreboard below viewport starting w/ bottom left corner and going ccw
+	
+	glBegin(GL_POLYGON);
+		glVertex2f(1.0,1.0);
+		glVertex2f(winWidth-1,1.0);
+		glVertex2f(winWidth-1, scoreboardHeight);
+		glVertex2f(1.0, scoreboardHeight);
+
+	glEnd();
+	
+        //glutSwapBuffers();
+	printToScoreboard();
 }
 
 void printToScoreboard()
@@ -124,86 +155,3 @@ void printToScoreboard()
 	printyS.str("");
 	glPopMatrix();
 }
-
-void display(void)
-{
-	glClear(GL_COLOR_BUFFER_BIT);   //clear window
-	glColor3f(1.0,1.0,1.0);		//set color to white
-//	glRecti(50.0,100.0, viewWidth+50, viewWidth+50);
-//	//drawing octagonal viewport
-	glBegin(GL_POLYGON);
-		//left-most vertices
-		glVertex2f(50.0, viewWidth*(2.0/3.0)+125.0);	
-		glVertex2f(50.0, viewWidth*(1.0/3.0)+125.0);	
-		
-		//bottom vertices
-		glVertex2f(50.0+viewWidth*(1.0/3.0), 125.0);
-		glVertex2f(50.0+viewWidth*(2.0/3.0), 125.0);
-		
-		//right most vertices
-		glVertex2f(50.0+viewWidth, 125.0+viewWidth*(1.0/3.0));
-		glVertex2f(50.0+viewWidth, 125.0+viewWidth*(2.0/3.0));
-		
-		//top vertices
-		glVertex2f(50.0+viewWidth*(2.0/3.0), 125.0+viewWidth);
-		glVertex2f(50.0+viewWidth*(1.0/3.0), 125.0+viewWidth);
-	glEnd();
-
-	//drawing rectangular scoreboard below viewport starting w/ bottom left corner and going ccw
-	
-	glBegin(GL_POLYGON);
-		glVertex2f(1.0,1.0);
-		glVertex2f(winWidth-1,1.0);
-		glVertex2f(winWidth-1, scoreboardHeight);
-		glVertex2f(1.0, scoreboardHeight);
-
-	glEnd();
-
-	printToScoreboard();
-	
-	glutSwapBuffers();
-}
-void mouse(int button, int state, int x, int y) 
-{
-      if ( button == GLUT_LEFT_BUTTON && state == GLUT_DOWN ) 
-      {    
-	glutPostRedisplay();
-      }
-}
-void keyboard( unsigned char key, int x, int y )
-{ 
-    if ( key == 'q' || key == 'Q') exit(0);
-	
-	//testing output changes
-	if (key == 'a')
-		shotsFired++;
-	if (key == 's')
-		asteroidsHit++;
-	if (key == 'd')
-		asteroidsOnScreen--;	
-
-	glutPostRedisplay();
-
-}
-int main(int argc, char** argv)
-{
-	cout<<"How wide would you like the viewport?"<<endl;
-	cin>>viewWidth;
-
-	winWidth = viewWidth+100;
-	winHeight = viewWidth + 150;
-
-	scoreboardWidth = winWidth-2;
-	scoreboardHeight = winHeight-(winHeight-100);
-    glutInit(&argc,argv);
-    glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB); 
-    glutInitWindowSize(winWidth,winHeight); 
-    glutInitWindowPosition(0,0); 
-    glutCreateWindow("You're Too SLOOOooooOOoOOOWWwW"); 
-    myinit(winWidth); 
-    glutMouseFunc(mouse);
-    glutKeyboardFunc(keyboard);
-    glutDisplayFunc(display); 
-    glutMainLoop();
-}
-
