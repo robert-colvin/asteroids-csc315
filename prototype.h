@@ -13,6 +13,8 @@ using namespace std;
 extern float winWidth, winHeight, viewWidth, scoreboardHeight, scoreboardWidth;
 extern int shotsFired, asteroidsHit, asteroidsOnScreen;
 
+extern float playerRot;
+
 void viewportInit();
 void playerInit();
 void printToScoreboard();

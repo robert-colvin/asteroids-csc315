@@ -7,8 +7,11 @@
 
 #include "prototype.h"
 
+
 float winWidth, winHeight, viewWidth, scoreboardHeight, scoreboardWidth;
 int shotsFired = 0, asteroidsHit = 0, asteroidsOnScreen = 50;
+
+float playerRot;
 
 void myGlutInit(int argc, char** argv){
 
@@ -24,16 +27,22 @@ void myinit( int winSize )
 {
 /* attributes */
 
-      glClearColor(0.0, 0.0, 0.0, 1.0); /* black background */
+        glClearColor(0.0, 0.0, 0.0, 1.0); /* black background */
 
 /* set up viewing */
 
-      glMatrixMode(GL_PROJECTION);
-      glLoadIdentity();
-      gluOrtho2D(0.0, (float) winWidth, 
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        gluOrtho2D(0.0, (float) winWidth, 
                  0.0, (float) winHeight);
-      glMatrixMode(GL_MODELVIEW);
+        glMatrixMode(GL_MODELVIEW);
+
+	playerRot = 0;
+
 }
+
+
+
 void display(void)
 {
 	 
@@ -43,8 +52,9 @@ void display(void)
 	viewportInit();
 	
 	glPushMatrix();
-	glTranslatef(200, 200, 0);
-	glScalef(100,100,0);
+	glTranslatef(winWidth/2, winHeight/2 + winHeight/15, 0);
+	glScalef(10,10,0);
+	glRotatef(playerRot, 0, 0, 1);
 	displayPlayer();
 	glPopMatrix();
 
@@ -80,11 +90,13 @@ void keyboard( unsigned char key, int x, int y )
 		asteroidsHit++;
 	if (key == 'd')
 		asteroidsOnScreen--;	
+	if (key == 'e')
+		playerRot += 10;
 
 	//glClear(GL_COLOR_BUFFER_BIT);
 	viewportInit();
 	glutPostRedisplay();
-	glutSwapBuffers();
+	//glutSwapBuffers();
 }
 
 int main(int argc, char** argv)

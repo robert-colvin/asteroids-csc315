@@ -29,7 +29,7 @@ void playerInit(){
 	Player = Player->next;
 	Player->info->x = 1.0; Player->info->y = -0.5; Player->info->z = 0; Player->info->w = 1.0;
 	Player = Player->next;
-	Player->info->x = 0.0; Player->info->y = 0.5; Player->info->z = 0; Player->info->w = 1.0;
+	Player->info->x = 0.0; Player->info->y = 1.5; Player->info->z = 0; Player->info->w = 1.0;
 	Player = Player->next;
 
 
@@ -39,6 +39,7 @@ void playerInit(){
 
 void displayPlayer(){
 
+	Player = Player->next;
 	struct vList *pStart = Player;
 	//Player = Player->next;
 
