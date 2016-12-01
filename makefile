@@ -5,6 +5,8 @@ LIBFLAGS = -lglut -lGLU -lGL -lm
 HEADERS = prototype.h
 OBJECTS = collision.o asteroid.o window.o player.o
 
+all : pristine main clean
+
 main : main.o $(OBJECTS)
 	$(CC) main.o $(OBJECTS) -o main $(LIBFLAGS)
 
@@ -27,8 +29,8 @@ clean :
 	rm *.o
 
 pristine :
-	rm *.o
-	touch *.c
+	rm -f *.o 
+	touch *.cpp
 
 ctags :
-	ctags *.c
+	ctags *.cpp
