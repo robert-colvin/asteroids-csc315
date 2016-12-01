@@ -2,17 +2,23 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 #include <iostream>
+#include <string.h>
+#include <sstream>
 
 #ifndef PROTO
 #define PROTO
 
 using namespace std;
 
-extern float winWidth, winHeight, viewWidth, accuracy;
+extern float winWidth, winHeight, viewWidth, scoreboardHeight, scoreboardWidth;
 extern int shotsFired, asteroidsHit, asteroidsOnScreen;
+
+extern float playerRot;
 
 void viewportInit();
 void playerInit();
+void printToScoreboard();
+void displayPlayer();
 
 struct vertex{
 
