@@ -51,7 +51,7 @@ struct tList{
 
 };
 
-struct aList{
+struct aList{ 
 
 	struct asteroid *info;
 	struct aList *next;
