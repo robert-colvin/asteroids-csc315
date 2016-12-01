@@ -51,6 +51,13 @@ struct tList{
 
 };
 
+struct aList{
+
+	struct asteroid *info;
+	struct aList *next;
+
+};
+
 struct asteroid{
 
 	struct vertex *origin;
