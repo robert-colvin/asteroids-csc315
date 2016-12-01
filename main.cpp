@@ -39,10 +39,13 @@ void display(void)
 	 
 	//int test = Player->info->x;
 	int test = 1;
+	
+	viewportInit();
+
 	cout << "hello World \n" << endl;
 	cout << test  << endl;
 	glColor3f(1.0,1.0,1.0);
-	printToScoreboard();
+	
 	glutSwapBuffers();
 
 }

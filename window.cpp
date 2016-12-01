@@ -36,7 +36,7 @@ void viewportInit(){
 
 	glEnd();
 	
-        glutSwapBuffers();
+        //glutSwapBuffers();
 	printToScoreboard();
 }
 
