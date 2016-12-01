@@ -24,19 +24,8 @@ void viewportInit(){
                 glVertex2f(50.0+viewWidth*(2.0/3.0), 125.0+viewWidth);
                 glVertex2f(50.0+viewWidth*(1.0/3.0), 125.0+viewWidth);
         glEnd();
-
 	
-	//drawing rectangular scoreboard below viewport starting w/ bottom left corner and going ccw
-	
-	glBegin(GL_POLYGON);
-		glVertex2f(1.0,1.0);
-		glVertex2f(winWidth-1,1.0);
-		glVertex2f(winWidth-1, scoreboardHeight);
-		glVertex2f(1.0, scoreboardHeight);
-
-	glEnd();
-	
-        //glutSwapBuffers();
+        glutSwapBuffers();
 	printToScoreboard();
 }
 
