@@ -41,9 +41,20 @@ void display(void)
 	int test = 1;
 	
 	viewportInit();
+	
+	glPushMatrix();
+	glTranslatef(200, 200, 0);
+	glScalef(100,100,0);
+	displayPlayer();
+	glPopMatrix();
 
+	glFlush();	
+/*
 	cout << "hello World \n" << endl;
-	cout << test  << endl;
+	cout << Player->info->x  << endl;
+	Player = Player->next;
+	cout << Player->info->x  << endl;
+*/
 	glColor3f(1.0,1.0,1.0);
 	
 	glutSwapBuffers();

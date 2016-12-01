@@ -16,6 +16,7 @@ extern int shotsFired, asteroidsHit, asteroidsOnScreen;
 void viewportInit();
 void playerInit();
 void printToScoreboard();
+void displayPlayer();
 
 struct vertex{
 
