@@ -96,9 +96,15 @@ void keyboard( unsigned char key, int x, int y )
 		playerRot += 10;
 
 	//glClear(GL_COLOR_BUFFER_BIT);
-	viewportInit();
-	glutPostRedisplay();
+	//viewportInit();
+	//glutPostRedisplay();
 	//glutSwapBuffers();
+}
+
+void refresh(){
+	
+	display();
+
 }
 
 int main(int argc, char** argv)
@@ -120,5 +126,6 @@ int main(int argc, char** argv)
 	glutMouseFunc(mouse);
 	glutKeyboardFunc(keyboard);
 	glutDisplayFunc(display); 
+	glutIdleFunc(refresh);
 	glutMainLoop();
 }
