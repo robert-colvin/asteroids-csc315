@@ -47,6 +47,8 @@ void display(void)
 	 
 	//int test = Player->info->x;
 	int test = 1;
+
+	displayAsteroids();
 	
 	viewportInit();
 	
@@ -122,6 +124,7 @@ int main(int argc, char** argv)
 	myinit(winWidth); 
 	viewportInit();
 	playerInit();
+	generate();
 	cout << "after player init\n" << endl;
 	glutMouseFunc(mouse);
 	glutKeyboardFunc(keyboard);
