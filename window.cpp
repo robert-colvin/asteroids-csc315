@@ -8,30 +8,30 @@ void viewportInit(){
         //drawing octagonal viewport
         glBegin(GL_POLYGON);
                 //left-most vertices
-                glVertex2f(50.0, viewWidth*(2.0/3.0)+125.0);
-                glVertex2f(50.0, viewWidth*(1.0/3.0)+125.0);
+                glVertex2f(50.0, viewWidth*(2.0/3.0)+140.0);//
+                glVertex2f(50.0, viewWidth*(1.0/3.0)+110.0);//
 
-		vertex lt = {50.0, viewWidth*(2.0/3.0)+125.0, 0, 1};
-		vertex lb = {50.0, viewWidth*(1.0/3.0)+125.0, 0, 1};
+		vertex lt = {50.0, viewWidth*(2.0/3.0)+140.0, 0, 1};
+		vertex lb = {50.0, viewWidth*(1.0/3.0)+110.0, 0, 1};
 
                 //bottom vertices
-                glVertex2f(50.0+viewWidth*(1.0/3.0), 125.0);
-                glVertex2f(50.0+viewWidth*(2.0/3.0), 125.0);
+                glVertex2f(35.0+viewWidth*(1.0/3.0), 150.0);
+                glVertex2f(65.0+viewWidth*(2.0/3.0), 150.0);
 
 		vertex bl = {50.0+viewWidth*(1.0/3.0),125.0, 0, 1};
 		vertex br = {50.0+viewWidth*(2.0/3.0),125.0, 0, 1};
 
                 //right most vertices
-                glVertex2f(50.0+viewWidth, 125.0+viewWidth*(1.0/3.0));
-                glVertex2f(50.0+viewWidth, 125.0+viewWidth*(2.0/3.0));	
+                glVertex2f(50.0+viewWidth, 110.0+viewWidth*(1.0/3.0));
+                glVertex2f(50.0+viewWidth, 140.0+viewWidth*(2.0/3.0));	
 		
 		vertex rb = {50.0+viewWidth, 125.0+viewWidth*(1.0/3.0), 0, 1};		
 		vertex rt = {50.0+viewWidth, 125.0+viewWidth*(2.0/3.0), 0, 1};		
                 
 
                 //top vertices
-                glVertex2f(50.0+viewWidth*(2.0/3.0), 125.0+viewWidth);
-                glVertex2f(50.0+viewWidth*(1.0/3.0), 125.0+viewWidth);
+                glVertex2f(65.0+viewWidth*(2.0/3.0), 100.0+viewWidth);
+                glVertex2f(35.0+viewWidth*(1.0/3.0), 100.0+viewWidth);
 
 		vertex tr = {50.0+viewWidth*(2.0/3.0), 125.0+viewWidth, 0, 1};		
 		vertex tl = {50.0+viewWidth*(1.0/3.0), 125.0+viewWidth, 0, 1};

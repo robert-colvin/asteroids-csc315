@@ -1,13 +1,12 @@
 #include "prototype.h"
 
 struct aList *Aster;
-float gridWidth;
+
 int gridX = 20; //Number of grid boxes in a row (100 boxes)
-float rMax = 5.0; //Maximum radius for any point (given 10x10 square)
+float gridWidth; //Height and width of each grid box;
+float rMax = 15; //Maximum radius for any point (given 10x10 square)
 
 void generate() {
-
-	gridWidth = viewWidth/(float)gridX; //Height and width of each grid box
 
 	Aster = new aList; //Initialize list of asteroids
 
@@ -50,7 +49,7 @@ void createVertices(struct vList * edge) {
 		//Randomize sides from 4 to 12
 	
 	struct vList *eStart = edge;
-	int sides = (rand() % 9) + 4;
+	int sides = (rand() % 9) + 5;
 
 	float angle = 0;
 	float angleStep = 360.0 / sides;
@@ -61,7 +60,7 @@ void createVertices(struct vList * edge) {
 		edge->info = new vertex;
 		edge->next = new vList;
 
-		float r = (((float)rand()/(float)RAND_MAX) * rMax); //radius of point between 0.0 and rMax
+		float r = (((float)rand()/(float)RAND_MAX +0.5) * rMax); //radius of point between 0.0 and rMax
 
 		float x = r * sin(angle); //Local coords
 		float y = r * cos(angle);
@@ -85,9 +84,9 @@ void displayAsteroids() {
 	struct aList *aStart = Aster; //Start node
 	float vertX;
 	float vertY;
-
-	gridWidth = viewWidth/(float)gridX; //Height and width of each grid box
+	gridWidth = viewWidth*2.8/(float)gridX; //Height and width of each grid box;
 	
+
 	glPointSize(10.0);
 	glColor3f(0.0, 1.0, 0.0);
 	do{
@@ -96,7 +95,7 @@ void displayAsteroids() {
 		do{
 				//Translate local coords to viewport coords
 			vertX = ((Aster->info->origin->x * gridWidth) + rMax) +eNow->info->x;
-			//cout << vertX << "            " ;
+			//cout << vertX << "            ";
 			vertY = ((Aster->info->origin->y * gridWidth) + rMax) + eNow->info->y;
 			//cout << vertY << endl;
 			glVertex2f(vertX, vertY);
