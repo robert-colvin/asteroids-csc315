@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string.h>
 #include <sstream>
+#include <cstdlib>
+#include <cmath>
 
 #ifndef PROTO
 #define PROTO
@@ -19,6 +21,9 @@ void viewportInit();
 void playerInit();
 void printToScoreboard();
 void displayPlayer();
+void generate();
+void createVertices(struct vList * edge);
+void displayAsteroids();
 
 struct vertex{
 
@@ -61,7 +66,8 @@ struct aList{
 struct asteroid{
 
 	struct vertex *origin;
-	float spin;	// need to determine if this is in degrees or radians
+	float spin;	// degree value
+	float direction; //degree value
 	struct vList *edge;
 	struct tList *tess;
 	 
@@ -69,5 +75,6 @@ struct asteroid{
 };
 
 extern struct vList *Player;
+extern struct aList *Aster;
 
 #endif
