@@ -2,7 +2,8 @@
 
 
 void viewportInit(){
-
+	
+	glPointSize(1.0);
 	glClear(GL_COLOR_BUFFER_BIT);   //clear window
         glColor3f(1.0,1.0,1.0);         //set color to white
 //      glRecti(50.0,100.0, viewWidth+50, viewWidth+50);        //draw rectangular viewport
