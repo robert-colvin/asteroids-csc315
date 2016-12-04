@@ -12,6 +12,7 @@ int shotsFired = 0, asteroidsHit = 0, asteroidsOnScreen = 50;
 
 float playerRot;
 
+
 void myGlutInit(int argc, char** argv){
 
 	glutInit(&argc,argv);
@@ -47,9 +48,9 @@ void display(void)
 	 
 	//int test = Player->info->x;
 	int test = 1;
-
-	displayAsteroids();
 	
+		
+		
 	viewportInit();
 	
 	glPushMatrix();
@@ -57,8 +58,9 @@ void display(void)
 	glScalef(10,10,0);
 	glRotatef(playerRot, 0, 0, 1);
 	displayPlayer();
+	
 	glPopMatrix();
-
+	displayAsteroids();
 	glFlush();	
 /*
 	cout << "hello World \n" << endl;
