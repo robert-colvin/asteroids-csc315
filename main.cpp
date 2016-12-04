@@ -15,6 +15,7 @@ vertex clipperVerts[8];
 
 float playerRot;
 
+
 void myGlutInit(int argc, char** argv){
 
 	glutInit(&argc,argv);
@@ -58,8 +59,9 @@ void display(void)
 	glScalef(10,10,0);
 	glRotatef(playerRot, 0, 0, 1);
 	displayPlayer();
+	
 	glPopMatrix();
-
+	displayAsteroids();
 	glFlush();	
 /*
 	cout << "hello World \n" << endl;
@@ -99,9 +101,15 @@ void keyboard( unsigned char key, int x, int y )
 		playerRot += 10;
 
 	//glClear(GL_COLOR_BUFFER_BIT);
-//	viewportInit();
-	glutPostRedisplay();
+	//viewportInit();
+	//glutPostRedisplay();
 	//glutSwapBuffers();
+}
+
+void refresh(){
+	
+	display();
+
 }
 
 int main(int argc, char** argv)
@@ -117,11 +125,13 @@ int main(int argc, char** argv)
 
 	myGlutInit(argc,argv);
 	myinit(winWidth); 
-//	viewportInit();
+	viewportInit();
 	playerInit();
+	generate();
 	cout << "after player init\n" << endl;
 	glutMouseFunc(mouse);
 	glutKeyboardFunc(keyboard);
 	glutDisplayFunc(display); 
+	glutIdleFunc(refresh);
 	glutMainLoop();
 }

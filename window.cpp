@@ -2,7 +2,7 @@
 
 
 void viewportInit(){
-
+	glPointSize(1.0);
 	glClear(GL_COLOR_BUFFER_BIT);   //clear window
         glColor3f(1.0,1.0,1.0);         //set color to white
         //drawing octagonal viewport
@@ -27,6 +27,7 @@ void viewportInit(){
 		
 		vertex rb = {50.0+viewWidth, 125.0+viewWidth*(1.0/3.0), 0, 1};		
 		vertex rt = {50.0+viewWidth, 125.0+viewWidth*(2.0/3.0), 0, 1};		
+                
 
                 //top vertices
                 glVertex2f(50.0+viewWidth*(2.0/3.0), 125.0+viewWidth);
@@ -43,6 +44,8 @@ void viewportInit(){
 		clipperVerts[4] = rb; clipperVerts[5] = rt;
 		clipperVerts[6] = tr; clipperVerts[7] = tl;
 		
+
+	
 	//drawing rectangular scoreboard below viewport starting w/ bottom left corner and going ccw
 	
 	glBegin(GL_POLYGON);
