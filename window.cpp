@@ -2,29 +2,48 @@
 
 
 void viewportInit(){
-	
 	glPointSize(1.0);
 	glClear(GL_COLOR_BUFFER_BIT);   //clear window
         glColor3f(1.0,1.0,1.0);         //set color to white
-//      glRecti(50.0,100.0, viewWidth+50, viewWidth+50);        //draw rectangular viewport
         //drawing octagonal viewport
         glBegin(GL_POLYGON);
                 //left-most vertices
                 glVertex2f(50.0, viewWidth*(2.0/3.0)+125.0);
                 glVertex2f(50.0, viewWidth*(1.0/3.0)+125.0);
 
+		vertex lt = {50.0, viewWidth*(2.0/3.0)+125.0, 0, 1};
+		vertex lb = {50.0, viewWidth*(1.0/3.0)+125.0, 0, 1};
+
                 //bottom vertices
                 glVertex2f(50.0+viewWidth*(1.0/3.0), 125.0);
                 glVertex2f(50.0+viewWidth*(2.0/3.0), 125.0);
 
+		vertex bl = {50.0+viewWidth*(1.0/3.0),125.0, 0, 1};
+		vertex br = {50.0+viewWidth*(2.0/3.0),125.0, 0, 1};
+
                 //right most vertices
                 glVertex2f(50.0+viewWidth, 125.0+viewWidth*(1.0/3.0));
-                glVertex2f(50.0+viewWidth, 125.0+viewWidth*(2.0/3.0));
+                glVertex2f(50.0+viewWidth, 125.0+viewWidth*(2.0/3.0));	
+		
+		vertex rb = {50.0+viewWidth, 125.0+viewWidth*(1.0/3.0), 0, 1};		
+		vertex rt = {50.0+viewWidth, 125.0+viewWidth*(2.0/3.0), 0, 1};		
+                
 
                 //top vertices
                 glVertex2f(50.0+viewWidth*(2.0/3.0), 125.0+viewWidth);
                 glVertex2f(50.0+viewWidth*(1.0/3.0), 125.0+viewWidth);
+
+		vertex tr = {50.0+viewWidth*(2.0/3.0), 125.0+viewWidth, 0, 1};		
+		vertex tl = {50.0+viewWidth*(1.0/3.0), 125.0+viewWidth, 0, 1};
+
         glEnd();
+	
+		//populating clipper array
+		clipperVerts[0] = lt; clipperVerts[1] = lb;
+		clipperVerts[2] = bl; clipperVerts[3] = br;
+		clipperVerts[4] = rb; clipperVerts[5] = rt;
+		clipperVerts[6] = tr; clipperVerts[7] = tl;
+		
 
 	
 	//drawing rectangular scoreboard below viewport starting w/ bottom left corner and going ccw

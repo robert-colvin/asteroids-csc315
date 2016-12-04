@@ -10,6 +10,9 @@
 float winWidth, winHeight, viewWidth, scoreboardHeight, scoreboardWidth;
 int shotsFired = 0, asteroidsHit = 0, asteroidsOnScreen = 50;
 
+//array of vertex structs to define octagonal clipper
+vertex clipperVerts[8];
+
 float playerRot;
 
 
@@ -49,8 +52,6 @@ void display(void)
 	//int test = Player->info->x;
 	int test = 1;
 	
-		
-		
 	viewportInit();
 	
 	glPushMatrix();

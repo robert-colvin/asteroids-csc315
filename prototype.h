@@ -14,6 +14,7 @@ using namespace std;
 
 extern float winWidth, winHeight, viewWidth, scoreboardHeight, scoreboardWidth;
 extern int shotsFired, asteroidsHit, asteroidsOnScreen;
+extern struct vertex clipperVerts[8];
 
 extern float playerRot;
 
