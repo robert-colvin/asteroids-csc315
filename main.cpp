@@ -99,6 +99,8 @@ void keyboard( unsigned char key, int x, int y )
 		asteroidsOnScreen--;	
 	if (key == 'e')
 		playerRot += 10;
+	if (key == 'r')
+		playerRot -= 10;
 
 	//glClear(GL_COLOR_BUFFER_BIT);
 	//viewportInit();
@@ -116,6 +118,7 @@ int main(int argc, char** argv)
 {
 	cout<<"How wide would you like the viewport?"<<endl;
 	cin>>viewWidth;
+	viewWidth *= 1.0;
 
 	winWidth = viewWidth+100;
 	winHeight = viewWidth + 150;
