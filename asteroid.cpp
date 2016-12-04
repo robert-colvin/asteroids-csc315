@@ -75,6 +75,7 @@ void displayAsteroids() {
 	gridWidth = viewWidth/(float)gridX; //Height and width of each grid box
 
 	glColor3f(0.0, 1.0, 0.0);
+	/*
 	glBegin(GL_POLYGON);
 	do{
 			//Translate local coords to viewport coords
@@ -84,4 +85,5 @@ void displayAsteroids() {
 		Aster = Aster->next;
 	} while(Aster->next != aStart);
 	glEnd();
+	*/
 }
