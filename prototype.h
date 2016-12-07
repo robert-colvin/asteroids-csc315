@@ -57,6 +57,14 @@ struct triangle{
 
 };
 
+struct mList{
+	struct triangle *info;
+	float xSpeed;
+	float ySpeed;
+	struct mList *next;
+
+};
+
 struct tList{
 
 	struct triangle *info;
