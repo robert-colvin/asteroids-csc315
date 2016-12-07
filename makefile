@@ -5,7 +5,7 @@ LIBFLAGS = -lglut -lGLU -lGL -lm
 HEADERS = prototype.h
 OBJECTS = collision.o asteroid.o window.o player.o tesselate.o
 
-all : pristine sanic clean
+all : pristine sanic clean squeaky
 
 sanic : main.o $(OBJECTS)
 	$(CC) main.o $(OBJECTS) -o sanic $(LIBFLAGS)
@@ -27,6 +27,8 @@ player.o : player.cpp
 
 tesselate.o : tesselate.cpp
 	$(CC) $(CLFAGS) -c tesselate.cpp
+squeaky :
+	rm -f *~
 
 clean :
 	rm *.o

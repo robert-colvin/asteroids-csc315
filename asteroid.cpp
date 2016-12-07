@@ -51,7 +51,7 @@ void rotatePoint(struct vertex * point, float centerX, float centerY, float angl
 	cout << "point x: " << point->x << endl;
 	angle *= (3.14159 / 180.0);
 	point->x = cos(angle) * (point->x - centerX) - sin(angle) * (point->y - centerY) + centerX;
-	point->y = sin(angle) * (point->x - centerX) - cos(angle) * (point->y - centerY) + centerY;
+	point->y = sin(angle) * (point->x - centerX) + cos(angle) * (point->y - centerY) + centerY;
 	cout << "point x changed: " << point->x << endl;
 }
 
@@ -93,7 +93,6 @@ void createVertices(struct vList * edge) {
 
 void displayAsteroids(bool paused) {
 
-//if (!paused){
 	struct aList *aStart = Aster; //Start node
 	float vertX;
 	float vertY;
@@ -120,7 +119,6 @@ void displayAsteroids(bool paused) {
 			eNow = eNow->next;
 		} while(eNow != Aster->info->edge);
 		glEnd();
-
 		if (!paused){
 		Aster->info->origin->x += Aster->info->xSpeed;
 		Aster->info->origin->y += Aster->info->ySpeed;
@@ -128,5 +126,4 @@ void displayAsteroids(bool paused) {
 		glPopMatrix();
 		Aster = Aster->next;
 	} while(Aster != aStart);
-//	}
 }
