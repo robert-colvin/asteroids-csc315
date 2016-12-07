@@ -26,7 +26,8 @@ void generate() {
 				//Generate random spin value between 0 degrees and 10 degrees
 			Aster->info->spin = rand() % 10;
 				//Generate random direction between 0 and 360
-			Aster->info->direction = rand() % 360;
+			Aster->info->xSpeed = -0.03 + ((rand() % 60)*0.001);
+			Aster->info->ySpeed = -0.03 + ((rand() % 60)*0.001);
 				//Generate random local vertices of asteroid
 				//dimensions are x=0-10, y=0-10
 			Aster->info->edge = new vList; //List of local vertices
@@ -88,9 +89,11 @@ void displayAsteroids() {
 	
 
 	glPointSize(10.0);
-	glColor3f(0.0, 1.0, 0.0);
+	glColor3f(1.0, 0.0, 1.0);
 	do{
 		struct vList *eNow = Aster->info->edge;
+		glPushMatrix();
+		//glTranslatef(winWidth/3 + (rand() % 50), winHeight/3 + (rand() % 50), 0);
 		glBegin(GL_POLYGON);
 		do{
 				//Translate local coords to viewport coords
@@ -103,6 +106,9 @@ void displayAsteroids() {
 			eNow = eNow->next;
 		} while(eNow != Aster->info->edge);
 		glEnd();
+		Aster->info->origin->x += Aster->info->xSpeed;
+		Aster->info->origin->y += Aster->info->ySpeed;
+		glPopMatrix();
 		Aster = Aster->next;
 	} while(Aster != aStart);
 	
