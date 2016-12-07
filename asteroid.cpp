@@ -80,8 +80,9 @@ void createVertices(struct vList * edge) {
 	}
 }
 
-void displayAsteroids() {
+void displayAsteroids(bool paused) {
 
+//if (!paused){
 	struct aList *aStart = Aster; //Start node
 	float vertX;
 	float vertY;
@@ -102,14 +103,16 @@ void displayAsteroids() {
 			vertY = ((Aster->info->origin->y * gridWidth) + rMax) + eNow->info->y;
 			//cout << vertY << endl;
 			glVertex2f(vertX, vertY);
-			cout << vertX << "          " << vertY << endl;
+//			cout << vertX << "          " << vertY << endl;
 			eNow = eNow->next;
 		} while(eNow != Aster->info->edge);
 		glEnd();
+		if (!paused){
 		Aster->info->origin->x += Aster->info->xSpeed;
 		Aster->info->origin->y += Aster->info->ySpeed;
+		}
 		glPopMatrix();
 		Aster = Aster->next;
 	} while(Aster != aStart);
-	
+//	}
 }

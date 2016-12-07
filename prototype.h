@@ -19,14 +19,17 @@ extern struct vertex clipperVerts[8];
 extern struct vList *Player;
 extern struct aList *Aster;
 extern float playerRot;
+extern bool startGame;
 
+void reset();
+void gameShitShirt(bool);
 void viewportInit();
 void playerInit();
 void printToScoreboard();
 void displayPlayer();
 void generate();
 void createVertices(struct vList * edge);
-void displayAsteroids();
+void displayAsteroids(bool);
 
 struct vertex{
 
