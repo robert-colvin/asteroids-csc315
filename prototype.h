@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <cmath>
 
+
 #ifndef PROTO
 #define PROTO
 
@@ -15,7 +16,8 @@ using namespace std;
 extern float winWidth, winHeight, viewWidth, scoreboardHeight, scoreboardWidth;
 extern int shotsFired, asteroidsHit, asteroidsOnScreen;
 extern struct vertex clipperVerts[8];
-
+extern struct vList *Player;
+extern struct aList *Aster;
 extern float playerRot;
 
 void viewportInit();
@@ -68,14 +70,12 @@ struct asteroid{
 
 	struct vertex *origin;
 	float spin;	// degree value
-	float direction; //degree value
+	float xSpeed; //x speed value
+	float ySpeed; //y speed value
 	struct vList *edge;
 	struct tList *tess;
 	 
 
 };
-
-extern struct vList *Player;
-extern struct aList *Aster;
 
 #endif
