@@ -45,6 +45,7 @@ void myinit( int winSize )
 	playerRot = 0;
 
 //
+	glColor3f(0.0,0.5,0.5);
 	test = new asteroid;
 	test->edge = new vList;
 	test->edge->info = new vertex;
@@ -52,29 +53,39 @@ void myinit( int winSize )
         test->edge->next->info = new vertex;
 	test->edge->next->next = new vList;
         test->edge->next->next->info = new vertex;
-	test->edge->next->next->next = test->edge;
+	test->edge->next->next->next = new vList;
+	test->edge->next->next->next->info = new vertex;
+	test->edge->next->next->next->next = test->edge;
 
 	test->edge->info->x = 150;
 	test->edge->info->y = 150;
 	test->edge->next->info->x = 200;
 	test->edge->next->info->y = 150;
-	test->edge->next->next->info->x = 175;
+	test->edge->next->next->info->x = 200;
 	test->edge->next->next->info->y = 200;
+	test->edge->next->next->next->info->x = 150;
+	test->edge->next->next->next->info->y = 200;
 
+	
 	test->tess = tesselate(test->edge);
-
+	
 	cout << test->tess->info->a->x << endl;
+	//cout << test->tess->next->info->a->x << endl;
 
-	glBegin(GL_LINE_LOOP);
-		//glVertex2f(test->tess->info->a->x,test->tess->info->a->y);
-		//glVertex2f(test->tess->info->b->x,test->tess->info->b->y);
-		//glVertex2f(test->tess->info->c->x,test->tess->info->c->y);
+	glColor3f(0.0,0.5,0.5);
+
+	glBegin(GL_POLYGON);
+		glVertex2f(test->tess->info->a->x,test->tess->info->a->y);
+		glVertex2f(test->tess->info->b->x,test->tess->info->b->y);
+		glVertex2f(test->tess->info->c->x,test->tess->info->c->y);
 	glEnd();
 	glFlush();
 
 	//test->tess
 
 //
+	int blah;
+	//cin >> blah;
 
 }
 
@@ -87,7 +98,7 @@ void display(void)
 {
 	 
 	//int test = Player->info->x;
-	int test = 1;
+	//int test = 1;
 //if(!paused){	
 	viewportInit();
 	
@@ -100,6 +111,18 @@ void display(void)
 	glPopMatrix();
 	displayAsteroids(paused);
 	glFlush();	
+
+	glColor3f(0.0,0.5,0.5);
+
+	cout << test->tess << endl;
+        glBegin(GL_POLYGON);
+                glVertex2f(test->tess->next->info->a->x,test->tess->next->info->a->y);
+                glVertex2f(test->tess->next->info->b->x,test->tess->next->info->b->y);
+                glVertex2f(test->tess->next->info->c->x,test->tess->next->info->c->y);
+        glEnd();
+        glFlush();
+
+
 	
 	glColor3f(1.0,1.0,1.0);
 	
@@ -154,6 +177,7 @@ void reset()
 	shotsFired = 0; asteroidsHit = 0; asteroidsOnScreen = 50;paused=true; 
 //	myGlutInit(argc,argv);
 	myinit(winWidth); 
+	
 	viewportInit();
 	playerInit();
 	generate();
