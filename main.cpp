@@ -161,6 +161,8 @@ void keyboard( unsigned char key, int x, int y )
 //		paused = true;
 		reset();
 		glutPostRedisplay();	
+	}if(key == ' '){
+		//fireMissile();
 	}
 	//if (key == 'o')
 	//	startGame = !startGame;
