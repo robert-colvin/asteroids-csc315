@@ -7,11 +7,15 @@
 
 #include "prototype.h"
 
-
 float winWidth, winHeight, viewWidth, scoreboardHeight, scoreboardWidth;
 int shotsFired = 0, asteroidsHit = 0, asteroidsOnScreen = 50;
 
+//array of vertex structs to define octagonal clipper
+vertex clipperVerts[8];
+
 float playerRot;
+
+struct asteroid *test;
 
 void myGlutInit(int argc, char** argv){
 
@@ -39,6 +43,38 @@ void myinit( int winSize )
 
 	playerRot = 0;
 
+//
+	test = new asteroid;
+	test->edge = new vList;
+	test->edge->info = new vertex;
+	test->edge->next = new vList;
+        test->edge->next->info = new vertex;
+	test->edge->next->next = new vList;
+        test->edge->next->next->info = new vertex;
+	test->edge->next->next->next = test->edge;
+
+	test->edge->info->x = 150;
+	test->edge->info->y = 150;
+	test->edge->next->info->x = 200;
+	test->edge->next->info->y = 150;
+	test->edge->next->next->info->x = 175;
+	test->edge->next->next->info->y = 200;
+
+	test->tess = tesselate(test->edge);
+
+	cout << test->tess->info->a->x << endl;
+
+	glBegin(GL_LINE_LOOP);
+		//glVertex2f(test->tess->info->a->x,test->tess->info->a->y);
+		//glVertex2f(test->tess->info->b->x,test->tess->info->b->y);
+		//glVertex2f(test->tess->info->c->x,test->tess->info->c->y);
+	glEnd();
+	glFlush();
+
+	//test->tess
+
+//
+
 }
 
 
@@ -56,11 +92,15 @@ void display(void)
 	glScalef(10,10,0);
 	glRotatef(playerRot, 0, 0, 1);
 	displayPlayer();
+	
 	glPopMatrix();
-
+	displayAsteroids();
 	glFlush();	
 /*
 	cout << "hello World \n" << endl;
+	cout << test  << endl;
+	glColor3f(1.0,1.0,1.0);
+	printToScoreboard();
 	cout << Player->info->x  << endl;
 	Player = Player->next;
 	cout << Player->info->x  << endl;
@@ -92,17 +132,26 @@ void keyboard( unsigned char key, int x, int y )
 		asteroidsOnScreen--;	
 	if (key == 'e')
 		playerRot += 10;
+	if (key == 'r')
+		playerRot -= 10;
 
 	//glClear(GL_COLOR_BUFFER_BIT);
-	viewportInit();
-	glutPostRedisplay();
+	//viewportInit();
+	//glutPostRedisplay();
 	//glutSwapBuffers();
+}
+
+void refresh(){
+	
+	display();
+
 }
 
 int main(int argc, char** argv)
 {
 	cout<<"How wide would you like the viewport?"<<endl;
 	cin>>viewWidth;
+	viewWidth *= 1.0;
 
 	winWidth = viewWidth+100;
 	winHeight = viewWidth + 150;
@@ -114,10 +163,11 @@ int main(int argc, char** argv)
 	myinit(winWidth); 
 	viewportInit();
 	playerInit();
+	generate();
 	cout << "after player init\n" << endl;
 	glutMouseFunc(mouse);
 	glutKeyboardFunc(keyboard);
 	glutDisplayFunc(display); 
+	glutIdleFunc(refresh);
 	glutMainLoop();
 }
-

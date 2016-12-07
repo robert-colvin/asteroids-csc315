@@ -49,7 +49,14 @@ void displayPlayer(){
 
 		glVertex2f(Player->info->x, Player->info->y);
 		Player = Player->next;
-	}while(Player != pStart);
+	}while(Player->next != pStart);
+	
+	glBegin(GL_POLYGON);
+	do{
+
+		glVertex2f(Player->info->x, Player->info->y);
+		Player = Player->next;
+	}while(Player->next != pStart);
 	glEnd();
 
 
