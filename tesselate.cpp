@@ -51,7 +51,8 @@ struct tList *tesselate(struct vList *original){
 	glColor3f(0.0,0.0,0.0);
 
 	struct vList *vTemp = original;
-	struct tList * newlist = new tList;
+	struct tList *newlist = new tList;
+	struct tList *nlStart = newlist;
 	newlist->info = new triangle;
 
 	cout << "before while loop" << endl;
@@ -62,21 +63,17 @@ struct tList *tesselate(struct vList *original){
 
 			cout << "start of loop" << endl;
 
-			struct vertex *thirda = new vertex;
-			struct vertex *thirdb = new vertex;
-			struct vertex *thirdabi = new vertex;
-			struct vertex *thirdbbi = new vertex;
-			thirda->x = vTemp->info->x;
-			thirda->y = vTemp->info->y;
-			thirdb->x = vTemp->next->next->info->x;
-			thirdb->y = vTemp->next->next->info->y;
-			
+
+			struct vertex *thirda = vTemp->info;
+                        struct vertex *thirdb = vTemp->next->next->info;
+                        struct vertex *thirdabi = new vertex;
+                        struct vertex *thirdbbi = vTemp->next->info;
 			cout << "after the thirds" << endl;
 			
 			thirdabi->x = (thirda->x+thirdb->x)/2;
 			thirdabi->y = (thirda->y+thirdb->y)/2;
-			thirdbbi->x = vTemp->next->info->x;
-			thirdbbi->y = vTemp->next->info->y;
+			//thirdbbi->x = vTemp->next->info->x;
+			//thirdbbi->y = vTemp->next->info->y;
 
 			int inter = 0;
 			struct vList *iter = vTemp->next;
@@ -91,15 +88,17 @@ struct tList *tesselate(struct vList *original){
 				}
 			}
 			if(inter == 0){
-				newlist->info->a->x = vTemp->info->x;
-				newlist->info->a->y = vTemp->info->y;
-				newlist->info->b->x = vTemp->next->info->x;
-				newlist->info->b->y = vTemp->next->info->y;
-				newlist->info->c->x = thirdb->x;
-				newlist->info->c->y = thirdb->y;
+
+				newlist->info->a = thirda;
+                                newlist->info->b = vTemp->next->info;
+                                newlist->info->c = thirdb;
+
+				cout << "cy" << newlist->info->c->y << endl;
+
 				newlist->next = new tList;
 				newlist = newlist->next;
-				
+				newlist->info = new triangle;			
+	
 				vTemp->info = thirda;
 				vTemp->next = vTemp->next->next;
 			}else{
@@ -111,15 +110,23 @@ struct tList *tesselate(struct vList *original){
 
 	}
 
+	//newlist->info = new triangle;
 	cout << "got through the loop" << endl;
 
-	struct vertex *thirdc = new struct vertex;
+	struct vertex *thirdc = new vertex;
 	struct vertex *thirdd = new vertex;
 	thirdc->x = vTemp->info->x;
 	thirdc->y = vTemp->info->y;
 	thirdd->x = vTemp->next->info->x;
 	thirdd->y = vTemp->next->info->y;
-	//newlist = newlist->next;
+
+	cout << "cy" << vTemp->next->next->info->y << endl;
+
+	newlist->info->a = thirdc;
+	newlist->info->b = thirdd;
+	newlist->info->c = vTemp->next->next->info;
+	//newlist->info->c->y = vTemp->next->next->info->y;
+	newlist->next = nlStart;
 	
 
 	return newlist;	

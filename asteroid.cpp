@@ -24,7 +24,7 @@ void generate() {
 			Aster->info->origin->x = i;
 			Aster->info->origin->y = j;
 				//Generate random spin value between 0 degrees and 10 degrees
-			Aster->info->spin = rand() % 10;
+			Aster->info->spin = (rand() % 5);
 				//Generate random direction between 0 and 360
 			Aster->info->xSpeed = -0.03 + ((rand() % 60)*0.001);
 			Aster->info->ySpeed = -0.03 + ((rand() % 60)*0.001);
@@ -46,6 +46,15 @@ void generate() {
 
 }
 
+void rotatePoint(struct vertex * point, float centerX, float centerY, float angle)
+{
+	//cout << "point x: " << point->x << endl;
+	angle *= (3.14159 / 180.0);
+	point->x = cos(angle) * (point->x - centerX) - sin(angle) * (point->y - centerY) + centerX;
+	point->y = sin(angle) * (point->x - centerX) + cos(angle) * (point->y - centerY) + centerY;
+	//cout << "point x changed: " << point->x << endl;
+}
+
 void createVertices(struct vList * edge) {
 		//Randomize sides from 4 to 12
 	
@@ -54,6 +63,8 @@ void createVertices(struct vList * edge) {
 
 	float angle = 0;
 	float angleStep = 360.0 / sides;
+
+	angleStep *= (3.14159 / 180.0);
 
 	//float rMin = 0.0;
 
@@ -80,7 +91,7 @@ void createVertices(struct vList * edge) {
 	}
 }
 
-void displayAsteroids() {
+void displayAsteroids(bool paused) {
 
 	struct aList *aStart = Aster; //Start node
 	float vertX;
@@ -94,22 +105,24 @@ void displayAsteroids() {
 		struct vList *eNow = Aster->info->edge;
 		glPushMatrix();
 		//glTranslatef(winWidth/3 + (rand() % 50), winHeight/3 + (rand() % 50), 0);
-		glBegin(GL_POLYGON);
+		glBegin(GL_LINE_LOOP);
 		do{
 				//Translate local coords to viewport coords
 			vertX = ((Aster->info->origin->x * gridWidth) + rMax) +eNow->info->x;
 			//cout << vertX << "            ";
 			vertY = ((Aster->info->origin->y * gridWidth) + rMax) + eNow->info->y;
 			//cout << vertY << endl;
+			rotatePoint(eNow->info, Aster->info->origin->x, Aster->info->origin->y, Aster->info->spin);
 			glVertex2f(vertX, vertY);
-			cout << vertX << "          " << vertY << endl;
+
 			eNow = eNow->next;
 		} while(eNow != Aster->info->edge);
 		glEnd();
+		if (!paused){
 		Aster->info->origin->x += Aster->info->xSpeed;
 		Aster->info->origin->y += Aster->info->ySpeed;
+		}
 		glPopMatrix();
 		Aster = Aster->next;
 	} while(Aster != aStart);
-	
 }
