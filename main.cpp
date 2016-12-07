@@ -9,7 +9,8 @@
 
 float winWidth, winHeight, viewWidth, scoreboardHeight, scoreboardWidth;
 int shotsFired = 0, asteroidsHit = 0, asteroidsOnScreen = 50;
-
+bool started = false;
+bool paused = false;
 //array of vertex structs to define octagonal clipper
 vertex clipperVerts[8];
 
@@ -77,6 +78,9 @@ void myinit( int winSize )
 
 }
 
+void calmTheFuckDown()
+{//cout <<"calm the fuck down bro"<<endl;
+}
 
 
 void display(void)
@@ -84,7 +88,7 @@ void display(void)
 	 
 	//int test = Player->info->x;
 	int test = 1;
-	
+//if(!paused){	
 	viewportInit();
 	
 	glPushMatrix();
@@ -94,21 +98,15 @@ void display(void)
 	displayPlayer();
 	
 	glPopMatrix();
-	displayAsteroids();
+	displayAsteroids(paused);
 	glFlush();	
-/*
-	cout << "hello World \n" << endl;
-	cout << test  << endl;
-	glColor3f(1.0,1.0,1.0);
-	printToScoreboard();
-	cout << Player->info->x  << endl;
-	Player = Player->next;
-	cout << Player->info->x  << endl;
-*/
+	
 	glColor3f(1.0,1.0,1.0);
 	
 	glutSwapBuffers();
-
+/*}
+else 
+	calmTheFuckDown();*/
 }
 
 void mouse(int button, int state, int x, int y) 
@@ -123,7 +121,6 @@ void keyboard( unsigned char key, int x, int y )
 { 
     if ( key == 'q' || key == 'Q') exit(0);
 	
-	//testing output changes
 	if (key == 'a')
 		shotsFired++;
 	if (key == 's')
@@ -134,19 +131,39 @@ void keyboard( unsigned char key, int x, int y )
 		playerRot += 10;
 	if (key == 'r')
 		playerRot -= 10;
-
+	if (key == 'p')
+		paused = !paused;
+	if (key == 'm'){
+//		paused = true;
+		reset();
+		glutPostRedisplay();	
+	}
+	//if (key == 'o')
+	//	startGame = !startGame;
 	//glClear(GL_COLOR_BUFFER_BIT);
 	//viewportInit();
 	//glutPostRedisplay();
 	//glutSwapBuffers();
 }
-
 void refresh(){
 	
 	display();
-
 }
-
+void reset()
+{
+	shotsFired = 0; asteroidsHit = 0; asteroidsOnScreen = 50;paused=true; 
+//	myGlutInit(argc,argv);
+	myinit(winWidth); 
+	viewportInit();
+	playerInit();
+	generate();
+	//cout << "after player init\n" << endl;
+	glutMouseFunc(mouse);
+	glutKeyboardFunc(keyboard);
+	glutDisplayFunc(display); 
+	glutIdleFunc(refresh);
+	glutMainLoop();
+}
 int main(int argc, char** argv)
 {
 	cout<<"How wide would you like the viewport?"<<endl;
@@ -160,7 +177,8 @@ int main(int argc, char** argv)
 	scoreboardHeight = winHeight-(winHeight-100);
 
 	myGlutInit(argc,argv);
-	myinit(winWidth); 
+	reset();
+/*	myinit(nWidth); 
 	viewportInit();
 	playerInit();
 	generate();
@@ -170,4 +188,5 @@ int main(int argc, char** argv)
 	glutDisplayFunc(display); 
 	glutIdleFunc(refresh);
 	glutMainLoop();
+*/
 }

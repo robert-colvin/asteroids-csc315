@@ -5,10 +5,10 @@ LIBFLAGS = -lglut -lGLU -lGL -lm
 HEADERS = prototype.h
 OBJECTS = collision.o asteroid.o window.o player.o tesselate.o
 
-all : pristine main clean
+all : pristine sanic clean
 
-main : main.o $(OBJECTS)
-	$(CC) main.o $(OBJECTS) -o main $(LIBFLAGS)
+sanic : main.o $(OBJECTS)
+	$(CC) main.o $(OBJECTS) -o sanic $(LIBFLAGS)
 
 main.o : main.cpp $(HEADERS)
 	$(CC) $(CFLAGS) -c main.cpp
