@@ -55,6 +55,8 @@ void createVertices(struct vList * edge) {
 	float angle = 0;
 	float angleStep = 360.0 / sides;
 
+	angleStep *= 3.14159/180.0;
+
 	//float rMin = 0.0;
 
 	for (int k=0;k<sides;k++) { //Create random-distance vertex for each point
@@ -95,7 +97,7 @@ void displayAsteroids(bool paused) {
 		struct vList *eNow = Aster->info->edge;
 		glPushMatrix();
 		//glTranslatef(winWidth/3 + (rand() % 50), winHeight/3 + (rand() % 50), 0);
-		glBegin(GL_POLYGON);
+		glBegin(GL_LINE_LOOP);
 		do{
 				//Translate local coords to viewport coords
 			vertX = ((Aster->info->origin->x * gridWidth) + rMax) +eNow->info->x;
