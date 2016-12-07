@@ -20,6 +20,8 @@ extern struct vList *Player;
 extern struct aList *Aster;
 extern float playerRot;
 
+extern struct asteroid *test;
+
 void viewportInit();
 void playerInit();
 void printToScoreboard();
@@ -27,6 +29,7 @@ void displayPlayer();
 void generate();
 void createVertices(struct vList * edge);
 void displayAsteroids();
+struct tList *tesselate(struct vList *original);
 
 struct vertex{
 

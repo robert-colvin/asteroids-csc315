@@ -15,6 +15,7 @@ vertex clipperVerts[8];
 
 float playerRot;
 
+struct asteroid *test;
 
 void myGlutInit(int argc, char** argv){
 
@@ -41,6 +42,38 @@ void myinit( int winSize )
         glMatrixMode(GL_MODELVIEW);
 
 	playerRot = 0;
+
+//
+	test = new asteroid;
+	test->edge = new vList;
+	test->edge->info = new vertex;
+	test->edge->next = new vList;
+        test->edge->next->info = new vertex;
+	test->edge->next->next = new vList;
+        test->edge->next->next->info = new vertex;
+	test->edge->next->next->next = test->edge;
+
+	test->edge->info->x = 150;
+	test->edge->info->y = 150;
+	test->edge->next->info->x = 200;
+	test->edge->next->info->y = 150;
+	test->edge->next->next->info->x = 175;
+	test->edge->next->next->info->y = 200;
+
+	test->tess = tesselate(test->edge);
+
+	cout << test->tess->info->a->x << endl;
+
+	glBegin(GL_LINE_LOOP);
+		//glVertex2f(test->tess->info->a->x,test->tess->info->a->y);
+		//glVertex2f(test->tess->info->b->x,test->tess->info->b->y);
+		//glVertex2f(test->tess->info->c->x,test->tess->info->c->y);
+	glEnd();
+	glFlush();
+
+	//test->tess
+
+//
 
 }
 
