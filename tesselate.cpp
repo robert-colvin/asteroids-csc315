@@ -54,13 +54,30 @@ bool intersect(struct vertex *a, struct vertex *b, struct vertex *c, struct vert
 
 */
 
+	/*cout << "randx = " << a->x << endl;
+	cout << "randy = " << a->y << endl;
+	
+	cout << "bx = " << b->x << endl;
+	cout << "by = " << b->y << endl;
+
+
+	cout << "cx = " << c->x << endl;
+	cout << "cy = " << c->y << endl;
+	
+	cout << "dx = " << d->x << endl;
+	cout << "dy = " << d->y << endl;*/
+	
+	
+
+
 	float denom = ((b->x-a->x)*(c->y-d->y) - (c->x-d->x)*(b->y-a->y));
 	float ua = ((c->x-a->x)*(c->y-d->y) - (c->y-a->y)*(c->x-d->x));
 	float ub = ((b->x-a->x)*(c->y-a->y) - (c->x-a->x)*(b->y-a->y));
 
 	if(denom == 0){
-		return true;
+		return false;
 	}else if((ua/denom > 0 && ua/denom < 1) && (ub/denom > 0 && ub/denom < 1)){
+		//cout << "this intersects" << endl;
 		return true;
 	}
 	
@@ -88,7 +105,7 @@ struct tList *tesselate(struct vList *original){
 
 	struct vList *copy = copyvList(original);
 
-	struct vList *vTemp = original;
+	struct vList *vTemp = copy;
 	struct tList *newlist = new tList;
 	struct tList *nlStart = newlist;
 	newlist->info = new triangle;
@@ -97,10 +114,13 @@ struct tList *tesselate(struct vList *original){
 	cout << vTemp->next->info->x << endl;
 	while(vTemp->next->next->next != vTemp){
 		cout << "before if statement" << endl;
-		if(crossProd(vTemp->info,vTemp->next->info,vTemp->next->next->info) > 0){
+		cout << "vTemp = " << vTemp << " vTemp next next next = " << vTemp->next->next->next << endl; 
+		cout << crossProd(vTemp->info,vTemp->next->info,vTemp->next->next->info) << endl;
+		if(crossProd(vTemp->info,vTemp->next->info,vTemp->next->next->info) < 0){
 
 			cout << "start of loop" << endl;
-
+			//int testnum;
+			//cin >> testnum;
 
 			struct vertex *thirda = vTemp->info;
                         struct vertex *thirdb = vTemp->next->next->info;
@@ -131,7 +151,7 @@ struct tList *tesselate(struct vList *original){
                                 newlist->info->b = vTemp->next->info;
                                 newlist->info->c = thirdb;
 
-				cout << "cy" << newlist->info->c->y << endl;
+				//cout << "cy" << newlist->info->c->y << endl;
 
 				newlist->next = new tList;
 				newlist = newlist->next;

@@ -3,10 +3,15 @@
 struct vList *Player;
 struct mList *missiles;
 
+int numMissiles;
+
 void playerInit(){
+
+	numMissiles = 0;
 
 	Player = new vList;
 	missiles = new mList;
+	missiles->next = missiles;
 
 	struct vList *pStart = Player;
 
@@ -39,35 +44,119 @@ void playerInit(){
 
 }
 
-void setMissleValues(struct triangle *mis){
+void setMissleValues(struct mList *mis){
 
-	mis->a = new vertex;
-	mis->b = new vertex;
-	mis->c = new vertex;
+	struct vList *misStart = mis->edge;
 
-	mis->a->x = -1.0; mis->a->y = -2.0; mis->a->z = 0; mis->a->w = 1;
-	mis->a->x =  1.0; mis->a->y = -2.0; mis->a->z = 0; mis->a->w = 1;
-	mis->a->x =  0.5; mis->a->y =  1.0; mis->a->z = 0; mis->a->w = 1;
+	float scale = 4;
+
+	mis->edge->info = new vertex;
+	mis->edge->next = new vList;
+	mis->edge->info->x = -1.0*scale; 
+	mis->edge->info->y = -2.0*scale; 
+	mis->edge->info->z = 0; 
+	mis->edge->info->w = 1;
+	rotatePoint(mis->edge->info,0,0,playerRot);
+	mis->edge = mis->edge->next;
+
+	mis->edge->info = new vertex;
+	mis->edge->next = new vList;
+	mis->edge->info->x =  1.0*scale; 
+	mis->edge->info->y = -2.0*scale; 
+	mis->edge->info->z = 0; 
+	mis->edge->info->w = 1;
+	rotatePoint(mis->edge->info,0,0,playerRot);
+	mis->edge = mis->edge->next;
+
+	mis->edge->info = new vertex;
+	mis->edge->info->x =  0.0*scale; 
+	mis->edge->info->y =  1.0*scale; 
+	mis->edge->info->z = 0; 
+	mis->edge->info->w = 1;
+	rotatePoint(mis->edge->info,0,0,playerRot);
+	mis->edge->next = misStart;
+
 
 }
 
-void fireMissile(){
+void fireMissile(struct mList *mis){
 
 	//need to set the rotation of the missile to the same as the player		
+	if(numMissiles == 0){
+	
+		mis->edge = new vList;
+		setMissleValues(mis);
+		
+		mis->origin = new vertex;
+		mis->origin->x = winWidth/2;
+		mis->origin->y = winHeight/2 + winHeight/15;
 
+		float rotationValue = (playerRot+90) * (3.14159/180);
+
+		mis->xSpeed = 5*cos(rotationValue);
+		mis->ySpeed = 5*sin(rotationValue);
+		
+		numMissiles++;
+	
+	}else{
+
+		struct mList *mStart = mis;
+
+		while(mis->next != mStart){
+			mis = mis->next;
+		}
+
+	        mis->next = new mList;
+	        mis = mis->next;
+	        mis->edge = new vList;
+	        mis->origin = new vertex;
+
+		mis->origin->x = winWidth/2;
+		mis->origin->y = winHeight/2 + winHeight/15;
+
+		float rotationValue = (playerRot+90) * (3.14159/180);
+
+		mis->xSpeed = 5*cos(rotationValue);
+		mis->ySpeed = 5*sin(rotationValue);
+
+		setMissleValues(mis);
+
+		mis->next = mStart;
+
+		numMissiles++;	
+
+	}
 }
 
 void displayMissiles(){
 
 	struct mList *mStart = missiles;
-
+if(numMissiles != 0){
+	glColor3f(1.0,0.0,0.0);
 	do{
 
-		//go through all possible missles on screen and print all of them out
+		missiles->origin->x += missiles->xSpeed;
+		missiles->origin->y += missiles->ySpeed;
+		if (distAway(missiles->origin->x, missiles->origin->y) > viewWidth/2.0){
+			missiles->origin->x = 1000;
+		}
+		//cout << missiles->origin->x << endl;
+
+		struct vertex *a = new vertex;
+
+		//a->x = 
+		//go through all possible missiles on screen and print all of them out
+		glBegin(GL_LINE_LOOP);
+			glVertex2f(missiles->edge->info->x+missiles->origin->x, missiles->edge->info->y+missiles->origin->y);
+			glVertex2f(missiles->edge->next->info->x+missiles->origin->x, missiles->edge->next->info->y+missiles->origin->y);
+			glVertex2f(missiles->edge->next->next->info->x+missiles->origin->x, missiles->edge->next->next->info->y+missiles->origin->y);
+		glEnd();
 	
 		missiles = missiles->next;	
 
 	}while(mStart != missiles);	
+}
+	glFlush();
 	
 }
 
