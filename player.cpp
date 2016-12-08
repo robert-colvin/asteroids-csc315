@@ -98,8 +98,10 @@ void fireMissile(struct mList *mis){
 		mis->origin->x = winWidth/2;
 		mis->origin->y = winHeight/2 + winHeight/15;
 
-		mis->xSpeed = 1;
-		mis->ySpeed = 1;
+		float rotationValue = (playerRot+90) * (3.14159/180);
+
+		mis->xSpeed = 5*cos(rotationValue);
+		mis->ySpeed = 5*sin(rotationValue);
 
 		setMissleValues(mis);
 
@@ -120,11 +122,11 @@ if(numMissiles != 0){
 		missiles->origin->x += missiles->xSpeed;
 		missiles->origin->y += missiles->ySpeed;
 
-		cout << missiles->origin->x << endl;
+		//cout << missiles->origin->x << endl;
 
 		struct vertex *a = new vertex;
 
-		a->x = 
+		//a->x = 
 		//go through all possible missiles on screen and print all of them out
 		glBegin(GL_LINE_LOOP);
 			glVertex2f(missiles->edge->info->x+missiles->origin->x, missiles->edge->info->y+missiles->origin->y);
