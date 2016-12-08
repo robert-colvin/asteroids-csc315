@@ -28,8 +28,8 @@ void generate() {
 				//Generate random spin value between 0 degrees and 10 degrees
 			Aster->info->spin = (rand() % 5);
 				//Generate random direction between 0 and 360
-			Aster->info->xSpeed = -0.03 + ((rand() % 6000)*0.1);
-			Aster->info->ySpeed = -0.03 + ((rand() % 6000)*0.1);
+			Aster->info->xSpeed = -0.03 + ((rand() % 6000)*0.0001);
+			Aster->info->ySpeed = -0.03 + ((rand() % 6000)*0.0001);
 				//Generate random local vertices of asteroid
 				//dimensions are x=0-10, y=0-10
 			Aster->info->edge = new vList; //List of local vertices
