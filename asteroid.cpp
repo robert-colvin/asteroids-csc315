@@ -4,7 +4,7 @@ struct aList *Aster;
 
 int gridX = 20; //Number of grid boxes in a row (100 boxes)
 float gridWidth; //Height and width of each grid box;
-float rMax = 15; //Maximum radius for any point (given 10x10 square)
+float rMax = 15;//*(viewWidth/(rMax*20)); //Maximum radius for any point (given 10x10 square)
 
 void generate() {
 
@@ -21,13 +21,15 @@ void generate() {
 
 				//Insert x and y of origin
 			Aster->info->origin = new vertex;
-			Aster->info->origin->x = i;
-			Aster->info->origin->y = j;
+			Aster->info->origin->x = rand() % (int)viewWidth;//i/(i*.65);
+			
+			Aster->info->origin->y = rand() % (int)viewWidth;//j/(j*.85);
+			cout <<Aster->info->origin->x<<"    "<<Aster->info->origin->y<<endl;
 				//Generate random spin value between 0 degrees and 10 degrees
 			Aster->info->spin = (rand() % 5);
 				//Generate random direction between 0 and 360
-			Aster->info->xSpeed = -0.03 + ((rand() % 60)*0.001);
-			Aster->info->ySpeed = -0.03 + ((rand() % 60)*0.001);
+			Aster->info->xSpeed = -0.03 + ((rand() % 6000)*0.0001);
+			Aster->info->ySpeed = -0.03 + ((rand() % 6000)*0.0001);
 				//Generate random local vertices of asteroid
 				//dimensions are x=0-10, y=0-10
 			Aster->info->edge = new vList; //List of local vertices
@@ -74,7 +76,7 @@ void createVertices(struct vList * edge) {
 		edge->info = new vertex;
 		edge->next = new vList;
 
-		float r = (((float)rand()/(float)RAND_MAX +0.5) * rMax); //radius of point between 0.0 and rMax
+		float r = ((((float)rand()/(float)RAND_MAX) +0.5) * rMax*(viewWidth/(rMax*40))); //radius of point between 0.0 and rMax
 
 		float x = r * sin(angle); //Local coords
 		float y = r * cos(angle);
@@ -110,9 +112,9 @@ void displayAsteroids(bool paused) {
 		glBegin(GL_LINE_LOOP);
 		do{
 				//Translate local coords to viewport coords
-			vertX = ((Aster->info->origin->x * gridWidth) + rMax) +eNow->info->x;
+			vertX = ((Aster->info->origin->x /* gridWidth*/) + rMax) +eNow->info->x;
 			//cout << vertX << "            ";
-			vertY = ((Aster->info->origin->y * gridWidth) + rMax) + eNow->info->y;
+			vertY = ((Aster->info->origin->y /** gridWidth*/) + rMax) + eNow->info->y;
 			//cout << vertY << endl;
 			if (!paused){
 			rotatePoint(eNow->info, Aster->info->origin->x, Aster->info->origin->y, Aster->info->spin);
