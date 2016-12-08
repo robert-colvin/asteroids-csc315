@@ -52,6 +52,14 @@ void setMissleValues(struct triangle *mis){
 }
 
 void fireMissile(){
+
+		
+
+}
+
+void displayMissiles(){
+
+	
 	
 }
 

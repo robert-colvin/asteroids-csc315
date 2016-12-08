@@ -1,6 +1,42 @@
 #include "prototype.h"
 
 
+void copyvList(struct vList *original){
+
+	struct vList *oStart = original;
+
+	struct vList *copy = new vList;
+	struct vList *cStart = copy;
+	copy->info = new vertex;
+
+	do{
+		
+		copy->info->x = original->info->x;
+		copy->info->y = original->info->y;	
+		//these are not necessary unless we can come up with a reason later
+
+		//copy->info->z = original->info->z;
+		//copy->info->w = original->info->w;		
+
+		copy->info->z = 0;
+		copy->info->w = 1;
+
+		original = original->next;
+		if(oStart != original){
+			copy->next = new vList;
+			copy = copy->next;
+			copy->info = new vertex;
+		}else{
+			copy->next = cStart;
+		}
+	}while(original != oStart);
+
+	
+
+	return copy;
+
+}
+
 bool intersect(struct vertex *a, struct vertex *b, struct vertex *c, struct vertex *d){
 /*
 	float denom = ((ab.b[0]-ab.a[0])*(cd.a[1]-cd.b[1])-(cd.a[0]-cd.b[0])*(ab.b[1]-ab.a[1]));

@@ -58,7 +58,7 @@ struct triangle{
 };
 
 struct mList{
-	struct triangle *info;
+	struct vList *edge;
 	float xSpeed;
 	float ySpeed;
 	struct mList *next;
