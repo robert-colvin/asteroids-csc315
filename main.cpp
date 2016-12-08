@@ -114,7 +114,7 @@ void display(void)
 	glFlush();	
 
 //tesselate test code
-
+/*
 	glColor3f(0.0,0.5,0.5);
 	
 	cout << test->tess << endl;
@@ -132,7 +132,7 @@ void display(void)
                 glVertex2f(test->tess->next->info->c->x,test->tess->next->info->c->y);
         glEnd();
         glFlush();
-
+*/
 
 	
 	glColor3f(1.0,1.0,1.0);

@@ -50,8 +50,10 @@ void rotatePoint(struct vertex * point, float centerX, float centerY, float angl
 {
 	//cout << "point x: " << point->x << endl;
 	angle *= (3.14159 / 180.0);
-	point->x = cos(angle) * (point->x - centerX) - sin(angle) * (point->y - centerY) + centerX;
-	point->y = sin(angle) * (point->x - centerX) + cos(angle) * (point->y - centerY) + centerY;
+	float tempx = point->x;
+	float tempy = point->y;
+	point->x = cos(angle) * (tempx - centerX) - sin(angle) * (tempy - centerY) + centerX;
+	point->y = sin(angle) * (tempx - centerX) + cos(angle) * (tempy - centerY) + centerY;
 	//cout << "point x changed: " << point->x << endl;
 }
 
@@ -112,7 +114,9 @@ void displayAsteroids(bool paused) {
 			//cout << vertX << "            ";
 			vertY = ((Aster->info->origin->y * gridWidth) + rMax) + eNow->info->y;
 			//cout << vertY << endl;
+			if (!paused){
 			rotatePoint(eNow->info, Aster->info->origin->x, Aster->info->origin->y, Aster->info->spin);
+			}
 			glVertex2f(vertX, vertY);
 
 			eNow = eNow->next;
