@@ -1,7 +1,7 @@
 #include "prototype.h"
 
 
-void copyvList(struct vList *original){
+struct vList * copyvList(struct vList *original){
 
 	struct vList *oStart = original;
 

@@ -53,13 +53,21 @@ void setMissleValues(struct triangle *mis){
 
 void fireMissile(){
 
-		
+	//need to set the rotation of the missile to the same as the player		
 
 }
 
 void displayMissiles(){
 
+	struct mList *mStart = missiles;
+
+	do{
+
+		//go through all possible missles on screen and print all of them out
 	
+		missiles = missiles->next;	
+
+	}while(mStart != missiles);	
 	
 }
 
