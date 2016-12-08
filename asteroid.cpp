@@ -72,7 +72,7 @@ void generate() {
 
 			createVertices(Aster->info->edge);
 
-			Aster->info->tess = tesselate(Aster->info->edge);
+			//Aster->info->tess = tesselate(Aster->info->edge);
 
 			cout << "donetess" << endl;
 			//Check each vertex for insideViewport
@@ -158,7 +158,7 @@ void displayAsteroids(bool paused) {
 		eNow = Aster->info->edge;
 		//glPushMatrix();
 		//glTranslatef(winWidth/3 + (rand() % 50), winHeight/3 + (rand() % 50), 0);
-		glBegin(GL_LINE_LOOP);
+		glBegin(GL_POLYGON);
 		do{
 				//Translate local coords to viewport coords
 			//cout << "more stuck" << endl;

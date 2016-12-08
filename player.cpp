@@ -137,7 +137,9 @@ if(numMissiles != 0){
 
 		missiles->origin->x += missiles->xSpeed;
 		missiles->origin->y += missiles->ySpeed;
-
+		if (distAway(missiles->origin->x, missiles->origin->y) > viewWidth/2.0){
+			missiles->origin->x = 1000;
+		}
 		//cout << missiles->origin->x << endl;
 
 		struct vertex *a = new vertex;
