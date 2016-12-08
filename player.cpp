@@ -1,10 +1,12 @@
 #include "prototype.h"
 
 struct vList *Player;
+struct mList *missiles;
 
 void playerInit(){
 
 	Player = new vList;
+	missiles = new mList;
 
 	struct vList *pStart = Player;
 
@@ -35,6 +37,30 @@ void playerInit(){
 
 	cout << "in player init \n" << endl;
 
+}
+
+void setMissleValues(struct triangle *mis){
+
+	mis->a = new vertex;
+	mis->b = new vertex;
+	mis->c = new vertex;
+
+	mis->a->x = -1.0; mis->a->y = -2.0; mis->a->z = 0; mis->a->w = 1;
+	mis->a->x =  1.0; mis->a->y = -2.0; mis->a->z = 0; mis->a->w = 1;
+	mis->a->x =  0.5; mis->a->y =  1.0; mis->a->z = 0; mis->a->w = 1;
+
+}
+
+void fireMissile(){
+
+		
+
+}
+
+void displayMissiles(){
+
+	
+	
 }
 
 void displayPlayer(){

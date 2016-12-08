@@ -112,7 +112,6 @@ void displayAsteroids(bool paused) {
 			//cout << vertX << "            ";
 			vertY = ((Aster->info->origin->y * gridWidth) + rMax) + eNow->info->y;
 			//cout << vertY << endl;
-
 			rotatePoint(eNow->info, Aster->info->origin->x, Aster->info->origin->y, Aster->info->spin);
 			glVertex2f(vertX, vertY);
 

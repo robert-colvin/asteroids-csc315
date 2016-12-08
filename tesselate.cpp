@@ -1,6 +1,42 @@
 #include "prototype.h"
 
 
+void copyvList(struct vList *original){
+
+	struct vList *oStart = original;
+
+	struct vList *copy = new vList;
+	struct vList *cStart = copy;
+	copy->info = new vertex;
+
+	do{
+		
+		copy->info->x = original->info->x;
+		copy->info->y = original->info->y;	
+		//these are not necessary unless we can come up with a reason later
+
+		//copy->info->z = original->info->z;
+		//copy->info->w = original->info->w;		
+
+		copy->info->z = 0;
+		copy->info->w = 1;
+
+		original = original->next;
+		if(oStart != original){
+			copy->next = new vList;
+			copy = copy->next;
+			copy->info = new vertex;
+		}else{
+			copy->next = cStart;
+		}
+	}while(original != oStart);
+
+	
+
+	return copy;
+
+}
+
 bool intersect(struct vertex *a, struct vertex *b, struct vertex *c, struct vertex *d){
 /*
 	float denom = ((ab.b[0]-ab.a[0])*(cd.a[1]-cd.b[1])-(cd.a[0]-cd.b[0])*(ab.b[1]-ab.a[1]));
@@ -63,23 +99,11 @@ struct tList *tesselate(struct vList *original){
 
 			cout << "start of loop" << endl;
 
-			/*
-			struct vertex *thirda = new vertex;
-			struct vertex *thirdb = new vertex;
-			struct vertex *thirdabi = new vertex;
-			struct vertex *thirdbbi = new vertex;
-			*/
 
 			struct vertex *thirda = vTemp->info;
                         struct vertex *thirdb = vTemp->next->next->info;
                         struct vertex *thirdabi = new vertex;
                         struct vertex *thirdbbi = vTemp->next->info;
-/*
-			thirda->x = vTemp->info->x;
-			thirda->y = vTemp->info->y;
-			thirdb->x = vTemp->next->next->info->x;
-			thirdb->y = vTemp->next->next->info->y;
-*/			
 			cout << "after the thirds" << endl;
 			
 			thirdabi->x = (thirda->x+thirdb->x)/2;
@@ -100,15 +124,6 @@ struct tList *tesselate(struct vList *original){
 				}
 			}
 			if(inter == 0){
-				/*
-				newlist->info->a->x = vTemp->info->x;
-				newlist->info->a->y = vTemp->info->y;
-				newlist->info->b->x = vTemp->next->info->x;
-				newlist->info->b->y = vTemp->next->info->y;
-				newlist->info->c->x = thirdb->x;
-				newlist->info->c->y = thirdb->y;
-				*/
-
 
 				newlist->info->a = thirda;
                                 newlist->info->b = vTemp->next->info;

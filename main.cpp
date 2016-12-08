@@ -11,6 +11,7 @@ float winWidth, winHeight, viewWidth, scoreboardHeight, scoreboardWidth;
 int shotsFired = 0, asteroidsHit = 0, asteroidsOnScreen = 50;
 bool started = false;
 bool paused = false;
+
 //array of vertex structs to define octagonal clipper
 vertex clipperVerts[8];
 
@@ -160,6 +161,8 @@ void keyboard( unsigned char key, int x, int y )
 //		paused = true;
 		reset();
 		glutPostRedisplay();	
+	}if(key == ' '){
+		//fireMissile();
 	}
 	//if (key == 'o')
 	//	startGame = !startGame;
