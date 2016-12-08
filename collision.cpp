@@ -11,20 +11,20 @@ bool isInViewport(struct vertex * vert) {
 	lineA->x = vert->x;
 	lineA->y = vert->y;
 
-	lineB->x = winWidth;
+	lineB->x = 0 /*winWidth*/;
 	lineB->y = vert->y;
 
 	for (int i = 0;i<8;i++) {
 		if (i!=7) {
 			if (intersect(lineA, lineB, &clipperVerts[i], &clipperVerts[i+1])) {
 				intersections++;
-				cout << "im intersecting right now\n";
+				//cout << "im intersecting right now\n";
 			}
 		}
 		else {
 			if (intersect(lineA, lineB, &clipperVerts[i], &clipperVerts[0])) {
 				intersections++;
-				cout << "im intersecting right now\n";
+				//cout << "im intersecting right now\n";
 			}
 		}
 	}

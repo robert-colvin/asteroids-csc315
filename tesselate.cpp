@@ -54,7 +54,7 @@ bool intersect(struct vertex *a, struct vertex *b, struct vertex *c, struct vert
 
 */
 
-	cout << "randx = " << a->x << endl;
+	/*cout << "randx = " << a->x << endl;
 	cout << "randy = " << a->y << endl;
 	
 	cout << "bx = " << b->x << endl;
@@ -65,7 +65,7 @@ bool intersect(struct vertex *a, struct vertex *b, struct vertex *c, struct vert
 	cout << "cy = " << c->y << endl;
 	
 	cout << "dx = " << d->x << endl;
-	cout << "dy = " << d->y << endl;
+	cout << "dy = " << d->y << endl;*/
 	
 	
 
@@ -77,7 +77,7 @@ bool intersect(struct vertex *a, struct vertex *b, struct vertex *c, struct vert
 	if(denom == 0){
 		return false;
 	}else if((ua/denom > 0 && ua/denom < 1) && (ub/denom > 0 && ub/denom < 1)){
-		cout << "this intersects" << endl;
+		//cout << "this intersects" << endl;
 		return true;
 	}
 	

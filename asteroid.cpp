@@ -5,6 +5,7 @@ struct aList *Aster;
 int gridX = 20; //Number of grid boxes in a row (100 boxes)
 float gridWidth; //Height and width of each grid box;
 float rMax = 15;//*(viewWidth/(rMax*20)); //Maximum radius for any point (given 10x10 square)
+float safe = 1.5 * rMax * (viewWidth/(rMax*40));
 
 void generate() {
 
@@ -18,19 +19,41 @@ void generate() {
 	
 	struct vertex *origVert = new vertex;
 	
+	bool runOnce = false;
+	
 	do {//Loop thru generation of 50 asteroids, skipping over every other grid box
 			Aster->info = new asteroid;
-			Aster->next = new aList;
+			
+			Aster->next = aStart;
 
 				//Insert x and y of origin
+/*
 			Aster->info->origin = new vertex;
 			do {
 				origVert->x = rand() % (int)winWidth;
 				origVert->y = (rand() % (int)(winHeight - scoreboardHeight)) + scoreboardHeight;
 
 			} while (!isInViewport(origVert) || distAway(origVert->x, origVert->y) >= (viewWidth/2.0-25));
+*/
+			if (!runOnce) {
+				do {
+					origVert->x = rand() % (int)winWidth;
+					origVert->y = (rand() % (int)(viewWidth)) + scoreboardHeight - (viewWidth / 45);
+				} while (!isInViewport(origVert));
+				runOnce = true;
+			}
+			else {
+				do {
+					origVert->x = rand() % (int)winWidth;
+					origVert->y = (rand() % (int)(viewWidth)) + scoreboardHeight - (viewWidth / 45);
+					cout << "rand x is: " << origVert->x << "\n";
+					cout << "rand y is: " << origVert->y << "\n";
+				} while (!isInViewport(origVert) || isNear(origVert, aStart));
+			}
 			
 			cout << "i made a good asteroid: " << aCount << "\n";
+			
+			Aster->info->origin = new vertex;
 			
 			Aster->info->origin->x = origVert->x;
 			Aster->info->origin->y = origVert->y;
@@ -50,6 +73,10 @@ void generate() {
 			createVertices(Aster->info->edge);
 
 			//Check each vertex for insideViewport
+			
+			Aster->next = new aList;
+			
+			//Aster->next->next = aStart;
 
 			Aster = Aster->next;
 
@@ -122,7 +149,7 @@ void displayAsteroids(bool paused) {
 	glColor3f(1.0, 0.0, 1.0);
 	do{
 		struct vList *eNow = new vList;
-		cout << "aster is doing shit\n";
+		//cout << "aster is doing shit\n";
 		eNow = Aster->info->edge;
 		glPushMatrix();
 		//glTranslatef(winWidth/3 + (rand() % 50), winHeight/3 + (rand() % 50), 0);
@@ -148,4 +175,25 @@ void displayAsteroids(bool paused) {
 		glPopMatrix();
 		Aster = Aster->next;
 	} while(Aster->next != aStart);
+}
+
+bool isNear (struct vertex * orig, struct aList * aStart) {
+	bool near = false;
+	
+	struct aList * ast = aStart;
+	
+	do {
+		//cout << "ast is running thru the x: " << ast->info->origin->x << "\n";
+		//cout << "ast is running thru the y: " << ast->info->origin->y << "\n";
+		//cout << "ast is running thru the distance: " << (sqrt(pow(ast->info->origin->x - orig->x, 2) + pow(ast->info->origin->y - orig->y, 2))) << "\n";
+		//cout << "ast is running thru the safe*2: " << 2 * 1.5 * rMax * (viewWidth/(rMax*40)) << "\n";
+		if ((sqrt(pow(ast->info->origin->x - orig->x, 2) + pow(ast->info->origin->y - orig->y, 2))) < 2 * 1.5 * rMax * (viewWidth/(rMax*40)))
+			near = true;
+		ast = ast->next;
+	} while(ast->next != aStart);
+	
+	cout << "i returned " << near << " for nearness\n";
+	
+	return near;
+
 }
