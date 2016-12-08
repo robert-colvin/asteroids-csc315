@@ -113,16 +113,26 @@ void display(void)
 	displayAsteroids(paused);
 	glFlush();	
 
+//tesselate test code
+/*
 	glColor3f(0.0,0.5,0.5);
-
+	
 	cout << test->tess << endl;
-        glBegin(GL_POLYGON);
+        
+	glBegin(GL_POLYGON);
+                glVertex2f(test->tess->info->a->x,test->tess->info->a->y);
+                glVertex2f(test->tess->info->b->x,test->tess->info->b->y);
+                glVertex2f(test->tess->info->c->x,test->tess->info->c->y);
+        glEnd();
+
+
+	glBegin(GL_POLYGON);
                 glVertex2f(test->tess->next->info->a->x,test->tess->next->info->a->y);
                 glVertex2f(test->tess->next->info->b->x,test->tess->next->info->b->y);
                 glVertex2f(test->tess->next->info->c->x,test->tess->next->info->c->y);
         glEnd();
         glFlush();
-
+*/
 
 	
 	glColor3f(1.0,1.0,1.0);
