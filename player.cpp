@@ -62,6 +62,7 @@ void setMissleValues(struct mList *mis){
 	mis->edge->info->x =  0.0; mis->edge->info->y =  1.0; mis->edge->info->z = 0; mis->edge->info->w = 1;
 	mis->edge->next = misStart;
 
+
 }
 
 void fireMissile(struct mList *mis){
@@ -112,20 +113,26 @@ void fireMissile(struct mList *mis){
 void displayMissiles(){
 
 	struct mList *mStart = missiles;
-
+if(numMissiles != 0){
+	glColor3f(1.0,0.0,0.0);
 	do{
+
+		missiles->origin->x += missiles->xSpeed;
+		missiles->origin->y += missiles->ySpeed;
+
+		cout << missiles->origin->x << endl;
 
 		//go through all possible missiles on screen and print all of them out
 		glBegin(GL_LINE_LOOP);
-			glVertex2f(missiles->edge->info->x, missiles->edge->info->y);
-			glVertex2f(missiles->edge->next->info->x, missiles->edge->next->info->y);
-			glVertex2f(missiles->edge->next->next->info->x, missiles->edge->next->next->info->y);
+			glVertex2f(missiles->edge->info->x+missiles->origin->x, missiles->edge->info->y+missiles->origin->y);
+			glVertex2f(missiles->edge->next->info->x+missiles->origin->x, missiles->edge->next->info->y+missiles->origin->y);
+			glVertex2f(missiles->edge->next->next->info->x+missiles->origin->x, missiles->edge->next->next->info->y+missiles->origin->y);
 		glEnd();
 	
 		missiles = missiles->next;	
 
 	}while(mStart != missiles);	
-
+}
 	glFlush();
 	
 }

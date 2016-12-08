@@ -108,11 +108,12 @@ void display(void)
 	glScalef(10,10,0);
 	glRotatef(playerRot, 0, 0, 1);
 	displayPlayer();
-	displayMissiles();
 	
 	glPopMatrix();
+	displayMissiles();
 	displayAsteroids(paused);
 	glFlush();	
+
 
 //tesselate test code
 /*
