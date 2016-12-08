@@ -3,7 +3,7 @@ CFLAGS = -g
 COPTFLAGS = 
 LIBFLAGS = -lglut -lGLU -lGL -lm
 HEADERS = prototype.h
-OBJECTS = collision.o asteroid.o window.o player.o tesselate.o
+OBJECTS = collision.o asteroid.o window.o player.o tesselate.o clipping.o wrapping.o
 
 all : pristine sanic clean squeaky
 
@@ -27,6 +27,13 @@ player.o : player.cpp
 
 tesselate.o : tesselate.cpp
 	$(CC) $(CLFAGS) -c tesselate.cpp
+
+clipping.o : clipping.cpp
+	$(CC) $(CLFAGS) -c clipping.cpp
+
+wrapping.o : wrapping.cpp
+	$(CC) $(CLFAGS) -c wrapping.cpp
+
 squeaky :
 	rm -f *~
 

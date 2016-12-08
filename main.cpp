@@ -111,6 +111,8 @@ void display(void)
 	
 	glPopMatrix();
 	displayAsteroids(paused);
+	checkWrap(Aster);
+	clipperInit();
 	glFlush();	
 
 //tesselate test code
@@ -192,6 +194,7 @@ void reset()
 	myinit(winWidth); 
 	
 	viewportInit();
+	clipperInit();
 	playerInit();
 	generate();
 	//cout << "after player init\n" << endl;
@@ -201,6 +204,7 @@ void reset()
 	glutIdleFunc(refresh);
 	glutMainLoop();
 }
+
 int main(int argc, char** argv)
 {
 	cout<<"How wide would you like the viewport?"<<endl;

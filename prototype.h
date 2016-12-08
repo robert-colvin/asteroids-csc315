@@ -38,6 +38,8 @@ bool intersect(struct vertex *a, struct vertex *b, struct vertex *c, struct vert
 void clipperInit();
 void checkWrap(struct aList *Aster);
 float distAway(float x1, float y1);
+bool isInViewport(struct vertex * vert);
+
 
 struct vertex{
 
