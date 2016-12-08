@@ -1,10 +1,12 @@
 #include "prototype.h"
 
 struct vList *Player;
+struct mList *missiles;
 
 void playerInit(){
 
 	Player = new vList;
+	missiles = new mList;
 
 	struct vList *pStart = Player;
 
@@ -37,6 +39,38 @@ void playerInit(){
 
 }
 
+void setMissleValues(struct triangle *mis){
+
+	mis->a = new vertex;
+	mis->b = new vertex;
+	mis->c = new vertex;
+
+	mis->a->x = -1.0; mis->a->y = -2.0; mis->a->z = 0; mis->a->w = 1;
+	mis->a->x =  1.0; mis->a->y = -2.0; mis->a->z = 0; mis->a->w = 1;
+	mis->a->x =  0.5; mis->a->y =  1.0; mis->a->z = 0; mis->a->w = 1;
+
+}
+
+void fireMissile(){
+
+	//need to set the rotation of the missile to the same as the player		
+
+}
+
+void displayMissiles(){
+
+	struct mList *mStart = missiles;
+
+	do{
+
+		//go through all possible missles on screen and print all of them out
+	
+		missiles = missiles->next;	
+
+	}while(mStart != missiles);	
+	
+}
+
 void displayPlayer(){
 
 	Player = Player->next;
@@ -50,7 +84,7 @@ void displayPlayer(){
 		glVertex2f(Player->info->x, Player->info->y);
 		Player = Player->next;
 	}while(Player->next != pStart);
-
+	
 	glBegin(GL_POLYGON);
 	do{
 
