@@ -20,6 +20,7 @@ extern struct vList *Player;
 extern struct aList *Aster;
 extern float playerRot;
 extern bool startGame;
+extern mList *missiles;
 
 extern struct asteroid *test;
 
@@ -59,6 +60,7 @@ struct triangle{
 
 struct mList{
 	struct vList *edge;
+	struct vertex *origin;
 	float xSpeed;
 	float ySpeed;
 	struct mList *next;
