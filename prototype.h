@@ -20,7 +20,7 @@ extern struct vList *Player;
 extern struct aList *Aster;
 extern float playerRot;
 extern bool startGame;
-extern mList *missiles;
+extern struct mList *missiles;
 
 extern struct asteroid *test;
 
