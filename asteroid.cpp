@@ -72,7 +72,7 @@ void generate() {
 
 			createVertices(Aster->info->edge);
 
-			//Aster->info->tess = tesselate(Aster->info->edge);
+			Aster->info->tess = tesselate(Aster->info->edge);
 
 			cout << "donetess" << endl;
 			//Check each vertex for insideViewport
@@ -174,6 +174,22 @@ void displayAsteroids(bool paused) {
 			eNow = eNow->next;
 		} while(eNow != Aster->info->edge);
 		glEnd();
+
+		struct aList *aStart = Aster;
+cout << aStart->info->tess->info->a->x << " tess point" << endl;
+
+/*
+		do{
+		glBegin(GL_POLYGON);	
+			
+			glVertex2f(aStart->info->tess->info->a->x, aStart->info->tess->info->a->y);
+			glVertex2f(aStart->info->tess->info->b->x, aStart->info->tess->info->b->y);
+			glVertex2f(aStart->info->tess->info->c->x, aStart->info->tess->info->c->y);
+			aStart = aStart->next;
+		
+		glEnd();
+		}while(aStart != Aster);
+*/
 		if (!paused){
 		Aster->info->origin->x += Aster->info->xSpeed;
 		Aster->info->origin->y += Aster->info->ySpeed;
