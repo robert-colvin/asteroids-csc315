@@ -86,6 +86,8 @@ struct tList *tesselate(struct vList *original){
 
 	glColor3f(0.0,0.0,0.0);
 
+	struct vList *copy = copyvList(original);
+
 	struct vList *vTemp = original;
 	struct tList *newlist = new tList;
 	struct tList *nlStart = newlist;
