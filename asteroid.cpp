@@ -72,7 +72,7 @@ void generate() {
 
 			createVertices(Aster->info->edge);
 
-			Aster->info->tess = tesselate(Aster->info->edge);
+			//Aster->info->tess = tesselate(Aster->info->edge);
 
 			cout << "donetess" << endl;
 			//Check each vertex for insideViewport
@@ -125,7 +125,7 @@ void createVertices(struct vList * edge) {
 		float x = r * sin(angle)+0.3; //Local coords
 		float y = r * cos(angle)+0.3;
 
-		cout << "x = " << x << " y = " << y << " r = " << r << " " << endl;		
+	//	cout << "x = " << x << " y = " << y << " r = " << r << " " << endl;		
 
 		edge->info->x = x;
 		edge->info->y = y;

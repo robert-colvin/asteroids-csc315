@@ -71,7 +71,7 @@ void myinit( int winSize )
 	
 //	test->tess = tesselate(test->edge);
 	
-	cout << "my init test" << test->edge->next->next->info->x << endl;
+	//cout << "my init test" << test->edge->next->next->info->x << endl;
 	//cout << test->tess->next->info->a->x << endl;
 
 	glColor3f(0.0,0.5,0.5);
@@ -104,7 +104,7 @@ void display(void)
 //if(!paused){	
 	viewportInit();
 
-	cout << "in display" << endl;
+	//cout << "in display" << endl;
 	
 	glPushMatrix();
 	glTranslatef(winWidth/2, winHeight/2 + winHeight/15, 0);

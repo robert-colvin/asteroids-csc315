@@ -102,7 +102,7 @@ void fireMissile(struct mList *mis){
 
 		struct mList *mStart = mis;
 
-		while(mis->next != mStart){
+		while( mis->next != mStart){
 			mis = mis->next;
 		}
 
@@ -128,6 +128,60 @@ void fireMissile(struct mList *mis){
 	}
 }
 
+struct mList * removeMissile(struct mList *mis){
+
+	struct mList *mStart = mis;
+
+if(numMissiles > 1){
+	do{
+		mStart = mStart->next;
+	}while( mStart->next != mis);
+
+	struct mList *tmp = mis->next;
+
+	struct vList *etmp = mis->edge;
+
+	/*delete mis->edge->info;
+	mis->edge = mis->edge->next;
+	delete etmp;
+	delete mis->edge->info;
+        etmp = mis->edge;
+	mis->edge = mis->edge->next;
+	delete etmp;
+	delete mis->edge->info;
+        delete mis->edge;
+*/
+	delete mis->origin;
+	
+	delete mStart->next;
+
+	mStart->next = tmp;
+	numMissiles--;
+	return tmp;
+}/*else{
+
+        struct vList *etmp = mis->edge;
+
+        delete mis->edge->info;
+        mis->edge = mis->edge->next;
+        delete etmp;
+        delete mis->edge->info;
+        etmp = mis->edge;
+        mis->edge = mis->edge->next;
+        delete etmp;
+        delete mis->edge->info;
+        delete mis->edge;
+
+        delete mis->origin;
+        
+	delete mis;
+
+        numMissiles--;
+	
+}	
+*/
+}
+
 void displayMissiles(){
 
 	struct mList *mStart = missiles;
@@ -137,6 +191,10 @@ if(numMissiles != 0){
 
 		missiles->origin->x += missiles->xSpeed;
 		missiles->origin->y += missiles->ySpeed;
+
+		if(distAway(missiles->origin->x, missiles->origin->y) > viewWidth/2.0){
+			//missiles = removeMissile(missiles);
+		}
 
 		//cout << missiles->origin->x << endl;
 

@@ -2,7 +2,7 @@
 
 void clipperInit(){
 	glPointSize(1.0);
-        glColor3f(0.0,0.0,0.0);         //set color 
+        glColor3f(0.0,1.0,0.0);         //set color 
         //drawing clipping area
 	
 	glPushMatrix();
