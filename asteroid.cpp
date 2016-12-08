@@ -13,38 +13,50 @@ void generate() {
 	struct aList *aStart = Aster; //Start node
 
 	//Use clipping algorithm against viewport walls to determine legal areas for asteroid?
-
-	for (int i=0;i<10;i=i+2) { //Loop thru generation of 50 asteroids, skipping over every other grid box
-		for (int j=0;j<10;j++) {
+	
+	int aCount = 0;
+	
+	struct vertex *origVert = new vertex;
+	
+	do {//Loop thru generation of 50 asteroids, skipping over every other grid box
 			Aster->info = new asteroid;
 			Aster->next = new aList;
 
 				//Insert x and y of origin
 			Aster->info->origin = new vertex;
-			Aster->info->origin->x = rand() % (int)viewWidth;//i/(i*.65);
+			do {
+				origVert->x = rand() % (int)winWidth;
+				origVert->y = (rand() % (int)(winHeight - scoreboardHeight)) + scoreboardHeight;
+
+			} while (!isInViewport(origVert));
 			
-			Aster->info->origin->y = rand() % (int)viewWidth;//j/(j*.85);
+			cout << "i made a good asteroid: " << aCount << "\n";
+			
+			Aster->info->origin->x = origVert->x;
+			Aster->info->origin->y = origVert->y;
+			
 			cout <<Aster->info->origin->x<<"    "<<Aster->info->origin->y<<endl;
 				//Generate random spin value between 0 degrees and 10 degrees
-			Aster->info->spin = (rand() % 5);
+			Aster->info->spin = -5 + (rand() % 10);
 				//Generate random direction between 0 and 360
-			Aster->info->xSpeed = -0.03 + ((rand() % 6000)*0.0001);
-			Aster->info->ySpeed = -0.03 + ((rand() % 6000)*0.0001);
+			Aster->info->xSpeed = -0.3 + ((rand() % 6000)*0.0001);
+			Aster->info->ySpeed = -0.3 + ((rand() % 6000)*0.0001);
 				//Generate random local vertices of asteroid
 				//dimensions are x=0-10, y=0-10
 			Aster->info->edge = new vList; //List of local vertices
 
 			createVertices(Aster->info->edge);
 
-			if(i==8 && j== 9){
-				Aster->next = aStart;
-			}else{
-				Aster = Aster->next;
-			}
-			
-		}
+			//Check each vertex for insideViewport
+
+			Aster = Aster->next;
+
+			aCount++;
 		
 	}
+	while (aCount < 50);
+	
+	Aster->next = aStart;
 
 }
 
@@ -97,7 +109,8 @@ void createVertices(struct vList * edge) {
 
 void displayAsteroids(bool paused) {
 
-	struct aList *aStart = Aster; //Start node
+	struct aList *aStart = Aster->next; //Start node
+	Aster = aStart;
 	float vertX;
 	float vertY;
 	gridWidth = viewWidth*2.8/(float)gridX; //Height and width of each grid box;
@@ -106,7 +119,9 @@ void displayAsteroids(bool paused) {
 	glPointSize(10.0);
 	glColor3f(1.0, 0.0, 1.0);
 	do{
-		struct vList *eNow = Aster->info->edge;
+		struct vList *eNow = new vList;
+		cout << "aster is doing shit\n";
+		eNow = Aster->info->edge;
 		glPushMatrix();
 		//glTranslatef(winWidth/3 + (rand() % 50), winHeight/3 + (rand() % 50), 0);
 		glBegin(GL_LINE_LOOP);
@@ -117,7 +132,7 @@ void displayAsteroids(bool paused) {
 			vertY = ((Aster->info->origin->y /** gridWidth*/) + rMax) + eNow->info->y;
 			//cout << vertY << endl;
 			if (!paused){
-			rotatePoint(eNow->info, Aster->info->origin->x, Aster->info->origin->y, Aster->info->spin);
+			rotatePoint(eNow->info, 0, 0, Aster->info->spin);
 			}
 			glVertex2f(vertX, vertY);
 
@@ -130,5 +145,5 @@ void displayAsteroids(bool paused) {
 		}
 		glPopMatrix();
 		Aster = Aster->next;
-	} while(Aster != aStart);
+	} while(Aster->next != aStart);
 }
