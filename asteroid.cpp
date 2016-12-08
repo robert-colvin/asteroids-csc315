@@ -28,7 +28,7 @@ void generate() {
 				origVert->x = rand() % (int)winWidth;
 				origVert->y = (rand() % (int)(winHeight - scoreboardHeight)) + scoreboardHeight;
 
-			} while (!isInViewport(origVert));
+			} while (!isInViewport(origVert) || distAway(origVert->x, origVert->y) >= (viewWidth/2.0-25));
 			
 			cout << "i made a good asteroid: " << aCount << "\n";
 			
@@ -39,8 +39,10 @@ void generate() {
 				//Generate random spin value between 0 degrees and 10 degrees
 			Aster->info->spin = -5 + (rand() % 10);
 				//Generate random direction between 0 and 360
-			Aster->info->xSpeed = -0.3 + ((rand() % 6000)*0.0001);
-			Aster->info->ySpeed = -0.3 + ((rand() % 6000)*0.0001);
+			float vary = 2.0;
+			if((rand() % 10) >= 5) vary *=-1.0;
+			Aster->info->xSpeed = (-0.6 + ((rand() % 12000)*0.0001))*vary;
+			Aster->info->ySpeed = (-0.6 + ((rand() % 12000)*0.0001))*vary;
 				//Generate random local vertices of asteroid
 				//dimensions are x=0-10, y=0-10
 			Aster->info->edge = new vList; //List of local vertices

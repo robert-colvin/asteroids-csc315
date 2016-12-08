@@ -37,6 +37,7 @@ void rotatePoint(struct vertex * point, float centerX, float centerY, float angl
 bool intersect(struct vertex *a, struct vertex *b, struct vertex *c, struct vertex *d);
 void clipperInit();
 void checkWrap(struct aList *Aster);
+void flipPoint(struct vertex * point, float centerX, float centerY);
 float distAway(float x1, float y1);
 bool isInViewport(struct vertex * vert);
 

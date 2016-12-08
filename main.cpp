@@ -211,8 +211,8 @@ int main(int argc, char** argv)
 	cin>>viewWidth;
 	viewWidth *= 1.0;
 
-	winWidth = viewWidth+100;
-	winHeight = viewWidth + 150;
+	winWidth = viewWidth + viewWidth/4.0;
+	winHeight = viewWidth + viewWidth/2.0;
 	
 	scoreboardWidth = winWidth-2;
 	scoreboardHeight = winHeight-(winHeight-100);
