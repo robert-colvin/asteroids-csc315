@@ -33,10 +33,12 @@ void generate();
 void createVertices(struct vList * edge);
 struct tList *tesselate(struct vList *original);
 void displayAsteroids(bool);
+void rotatePoint(struct vertex * point, float centerX, float centerY, float angle);
 bool intersect(struct vertex *a, struct vertex *b, struct vertex *c, struct vertex *d);
 bool isInViewport(struct vertex * vert);
 void displayMissiles();
 void fireMissile(struct mList *mis);
+bool isNear (struct vertex * orig, struct aList * aStart);
 
 struct vertex{
 

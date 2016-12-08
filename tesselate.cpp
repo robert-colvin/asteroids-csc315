@@ -54,13 +54,30 @@ bool intersect(struct vertex *a, struct vertex *b, struct vertex *c, struct vert
 
 */
 
+	/*cout << "randx = " << a->x << endl;
+	cout << "randy = " << a->y << endl;
+	
+	cout << "bx = " << b->x << endl;
+	cout << "by = " << b->y << endl;
+
+
+	cout << "cx = " << c->x << endl;
+	cout << "cy = " << c->y << endl;
+	
+	cout << "dx = " << d->x << endl;
+	cout << "dy = " << d->y << endl;*/
+	
+	
+
+
 	float denom = ((b->x-a->x)*(c->y-d->y) - (c->x-d->x)*(b->y-a->y));
 	float ua = ((c->x-a->x)*(c->y-d->y) - (c->y-a->y)*(c->x-d->x));
 	float ub = ((b->x-a->x)*(c->y-a->y) - (c->x-a->x)*(b->y-a->y));
 
 	if(denom == 0){
-		return true;
+		return false;
 	}else if((ua/denom > 0 && ua/denom < 1) && (ub/denom > 0 && ub/denom < 1)){
+		//cout << "this intersects" << endl;
 		return true;
 	}
 	
