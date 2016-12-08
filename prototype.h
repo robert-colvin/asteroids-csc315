@@ -17,9 +17,11 @@ extern float winWidth, winHeight, viewWidth, scoreboardHeight, scoreboardWidth;
 extern int shotsFired, asteroidsHit, asteroidsOnScreen;
 extern struct vertex clipperVerts[8];
 extern struct vList *Player;
+extern struct vList *p2;
 extern struct aList *Aster;
 extern float playerRot;
 extern bool startGame;
+extern bool filled;
 extern struct mList *missiles;
 
 extern struct asteroid *test;
@@ -32,59 +34,62 @@ void displayPlayer();
 void generate();
 void createVertices(struct vList * edge);
 struct tList *tesselate(struct vList *original);
-void displayAsteroids(bool);
+void displayAsteroids(bool,bool);
 bool intersect(struct vertex *a, struct vertex *b, struct vertex *c, struct vertex *d);
 bool isInViewport(struct vertex * vert);
-
-struct vertex{
+bool noIntersectsVList4Gray(vList*,vList*);
+void checkCollisions(asteroid *astNow);
+struct vList * copyvList(struct vList *original);
+typedef struct vertex{
 
 	float x;
 	float y;
 	float z;
 	float w;
 
-};
+}vertex;
 
-struct vList{
-
+typedef struct vList{
+	bool broken;
 	struct vertex *info;
 	struct vList *next;
 
-};
+}vList;
 
-struct triangle{
+typedef struct triangle{
 
 	struct vertex *a;
 	struct vertex *b;
 	struct vertex *c;
 
-};
+}triangle;
 
-struct mList{
+typedef struct mList{
 	struct vList *edge;
 	struct vertex *origin;
 	float xSpeed;
 	float ySpeed;
 	struct mList *next;
 
-};
+}mList;
 
-struct tList{
+typedef struct tList{
 
 	struct triangle *info;
 	struct tList *next;
 
-};
+}tList;
 
-struct aList{ 
+typedef struct aList{ 
 
 	struct asteroid *info;
 	struct aList *next;
 
-};
+}aList;
 
-struct asteroid{
+typedef struct asteroid{
 
+//	bool broken;
 	struct vertex *origin;
 	float spin;	// degree value
 	float xSpeed; //x speed value
@@ -93,6 +98,6 @@ struct asteroid{
 	struct tList *tess;
 	 
 
-};
+}asteroid;
 
 #endif

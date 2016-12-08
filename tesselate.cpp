@@ -58,9 +58,7 @@ bool intersect(struct vertex *a, struct vertex *b, struct vertex *c, struct vert
 	float ua = ((c->x-a->x)*(c->y-d->y) - (c->y-a->y)*(c->x-d->x));
 	float ub = ((b->x-a->x)*(c->y-a->y) - (c->x-a->x)*(b->y-a->y));
 
-	if(denom == 0){
-		return true;
-	}else if((ua/denom > 0 && ua/denom < 1) && (ub/denom > 0 && ub/denom < 1)){
+	if((ua/denom > 0 && ua/denom < 1) && (ub/denom > 0 && ub/denom < 1)){
 		return true;
 	}
 	
@@ -82,7 +80,7 @@ GLfloat crossProd(struct vertex *a, struct vertex *b, struct vertex *c){
 
 struct tList *tesselate(struct vList *original){
 
-	cout << "start tesselate" << endl;
+	//cout << "start tesselate" << endl;
 
 	glColor3f(0.0,0.0,0.0);
 
@@ -93,10 +91,10 @@ struct tList *tesselate(struct vList *original){
 	struct tList *nlStart = newlist;
 	newlist->info = new triangle;
 
-	cout << "before while loop" << endl;
+	//cout << "before while loop" << endl;
 	cout << vTemp->next->info->x << endl;
 	while(vTemp->next->next->next != vTemp){
-		cout << "before if statement" << endl;
+		//cout << "before if statement" << endl;
 		if(crossProd(vTemp->info,vTemp->next->info,vTemp->next->next->info) > 0){
 
 			cout << "start of loop" << endl;
@@ -106,7 +104,7 @@ struct tList *tesselate(struct vList *original){
                         struct vertex *thirdb = vTemp->next->next->info;
                         struct vertex *thirdabi = new vertex;
                         struct vertex *thirdbbi = vTemp->next->info;
-			cout << "after the thirds" << endl;
+			//cout << "after the thirds" << endl;
 			
 			thirdabi->x = (thirda->x+thirdb->x)/2;
 			thirdabi->y = (thirda->y+thirdb->y)/2;
@@ -117,16 +115,19 @@ struct tList *tesselate(struct vList *original){
 			struct vList *iter = vTemp->next;
 			
 			while(inter == 0 && iter != vTemp){
+				
 				if(intersect(thirda,thirdb,iter->info, iter->next->info)){
 					inter++;
 				}else if(intersect(thirdabi,thirdbbi,iter->info, iter->next->info)){
 					inter++;
 				}else{
+					cout << "ivfvfiyfiv"<<endl;
 					iter = iter->next;
 				}
 			}
+			cout <<inter<<endl;
 			if(inter == 0){
-
+				cout << "good news brah"<<endl;
 				newlist->info->a = thirda;
                                 newlist->info->b = vTemp->next->info;
                                 newlist->info->c = thirdb;
@@ -140,9 +141,11 @@ struct tList *tesselate(struct vList *original){
 				vTemp->info = thirda;
 				vTemp->next = vTemp->next->next;
 			}else{
-				vTemp = vTemp->next;
+				//cout << "moving down the list because i have intersected"<<endl;
+				//vTemp = vTemp->next;
 			}
 		}else{
+			//cout << "am clockwise"<<endl;
 			vTemp = vTemp->next;
 		}
 
@@ -158,7 +161,7 @@ struct tList *tesselate(struct vList *original){
 	thirdd->x = vTemp->next->info->x;
 	thirdd->y = vTemp->next->info->y;
 
-	cout << "cy" << vTemp->next->next->info->y << endl;
+	//cout << "cy" << vTemp->next->next->info->y << endl;
 
 	newlist->info->a = thirdc;
 	newlist->info->b = thirdd;
@@ -166,6 +169,5 @@ struct tList *tesselate(struct vList *original){
 	//newlist->info->c->y = vTemp->next->next->info->y;
 	newlist->next = nlStart;
 	
-
 	return newlist;	
 }

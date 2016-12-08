@@ -24,7 +24,9 @@ void generate() {
 			Aster->info->origin->x = rand() % (int)viewWidth;//i/(i*.65);
 			
 			Aster->info->origin->y = rand() % (int)viewWidth;//j/(j*.85);
-			cout <<Aster->info->origin->x<<"    "<<Aster->info->origin->y<<endl;
+			
+
+			//	cout <<Aster->info->origin->x<<"    "<<Aster->info->origin->y<<endl;
 				//Generate random spin value between 0 degrees and 10 degrees
 			Aster->info->spin = (rand() % 5);
 				//Generate random direction between 0 and 360
@@ -33,12 +35,15 @@ void generate() {
 				//Generate random local vertices of asteroid
 				//dimensions are x=0-10, y=0-10
 			Aster->info->edge = new vList; //List of local vertices
-
+Aster->info->edge->broken=false;Aster->info->edge->broken=false;Aster->info->edge->broken=false;Aster->info->edge->broken=false;Aster->info->edge->broken=false;
 			createVertices(Aster->info->edge);
-
+			Aster->info->edge->broken=false;
+//			Aster->info->tess = tesselate(Aster->info->edge);
 			if(i==8 && j== 9){
+			Aster->info->edge->broken=false;
 				Aster->next = aStart;
 			}else{
+			
 				Aster = Aster->next;
 			}
 			
@@ -61,7 +66,7 @@ void rotatePoint(struct vertex * point, float centerX, float centerY, float angl
 
 void createVertices(struct vList * edge) {
 		//Randomize sides from 4 to 12
-	
+	bool good = false;	
 	struct vList *eStart = edge;
 	int sides = (rand() % 9) + 5;
 
@@ -71,8 +76,8 @@ void createVertices(struct vList * edge) {
 	angleStep *= (3.14159 / 180.0);
 
 	//float rMin = 0.0;
-
-	for (int k=0;k<sides;k++) { //Create random-distance vertex for each point
+	for (int k=0;k<sides;k++)
+	 { //Create random-distance vertex for each point
 		edge->info = new vertex;
 		edge->next = new vList;
 
@@ -93,36 +98,94 @@ void createVertices(struct vList * edge) {
 			edge = edge->next;
 		}
 	}
-}
+}/*
+vList* getWorldCoords(vList *localV, float xLocalO, float yLocalO, float angle)
+{
+	float vertX,vertY;
 
-void displayAsteroids(bool paused) {
+	vList *returnoMan = copyvList(localV);
+	vList *vStart = returnoMan;
+	//Translate local coords to viewport coords
+	do
+	{
+		//rotatePoint(returnoMan->info, 0, 0, angle);
+		vertX = ((xLocalO) + rMax) +returnoMan->info->x;
+	//cout << vertX << "            ";
+		vertY = ((yLocalO) + rMax) + returnoMan->info->y;
+		returnoMan->info->x=vertX;
+		returnoMan->info->y=vertY;
+		
+		returnoMan=returnoMan->next;
+	}while(vStart!=returnoMan);
+	
+	return returnoMan;
+}
+//logic error?
+void checkCollisions(asteroid *astNow)
+{		
+	if(astNow->edge->broken==false)
+	{	cout<<"this ast isnt broken yet"<<endl;
+	
+		struct aList *aStart = Aster;
+		struct aList *axg = aStart;
+		vList *axCopy = getWorldCoords(axg->info->edge,axg->info->origin->x,axg->info->origin->y,axg->info->spin); 
+		do
+		{
+			if(astNow->edge==axg->info->edge)
+				cout << "WE WERE THE SAME ASTEROID\n";
+			else
+				astNow->edge->broken = !(noIntersectsVList4Gray(getWorldCoords(astNow->edge,astNow->origin->x,astNow->origin->y,
+																	astNow->spin),
+							getWorldCoords(axg->info->edge,axg->info->origin->x,axg->info->origin->y,axg->info->spin)));
+			
+			if(astNow->edge->broken){cout<<"now im broken"<<endl;break;}
+			else{cout<<"still not broken"<<endl;}
+			//cout<<axg->info->edge->broken<<endl;
+
+			axg=axg->next;
+		}while(axg!=aStart);
+		cout<<"onto the next asteroid"<<endl;
+	}
+}*/
+void displayAsteroids(bool paused, bool filled) {
 
 	struct aList *aStart = Aster; //Start node
 	float vertX;
 	float vertY;
 	gridWidth = viewWidth*2.8/(float)gridX; //Height and width of each grid box;
 	
+	int testy = 0;
 
 	glPointSize(10.0);
 	glColor3f(1.0, 0.0, 1.0);
 	do{
 		struct vList *eNow = Aster->info->edge;
+
 		glPushMatrix();
 		//glTranslatef(winWidth/3 + (rand() % 50), winHeight/3 + (rand() % 50), 0);
-		glBegin(GL_LINE_LOOP);
-		do{
+		if(filled)
+			glBegin(GL_POLYGON);
+		else
+			glBegin(GL_LINE_LOOP);
+//		if(!eNow->broken)
+//		{
+			do{
 				//Translate local coords to viewport coords
-			vertX = ((Aster->info->origin->x /* gridWidth*/) + rMax) +eNow->info->x;
+				vertX = ((Aster->info->origin->x /* gridWidth*/) + rMax) +eNow->info->x;
 			//cout << vertX << "            ";
-			vertY = ((Aster->info->origin->y /** gridWidth*/) + rMax) + eNow->info->y;
+				vertY = ((Aster->info->origin->y /** gridWidth*/) + rMax) + eNow->info->y;
 			//cout << vertY << endl;
-			if (!paused){
-			rotatePoint(eNow->info, Aster->info->origin->x, Aster->info->origin->y, Aster->info->spin);
-			}
-			glVertex2f(vertX, vertY);
+				if (!paused){
+				rotatePoint(eNow->info, 0, 0, Aster->info->spin);
+				}
+				//checkCollisions(Aster->info);
+				
+				if (eNow->broken==false)
+					glVertex2f(vertX, vertY);
 
-			eNow = eNow->next;
-		} while(eNow != Aster->info->edge);
+				eNow = eNow->next;
+			} while(eNow != Aster->info->edge);
+//		}
 		glEnd();
 		if (!paused){
 		Aster->info->origin->x += Aster->info->xSpeed;

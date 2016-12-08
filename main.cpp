@@ -9,7 +9,7 @@
 
 float winWidth, winHeight, viewWidth, scoreboardHeight, scoreboardWidth;
 int shotsFired = 0, asteroidsHit = 0, asteroidsOnScreen = 50;
-bool started = false;
+bool filled = false;
 bool paused = false;
 
 //array of vertex structs to define octagonal clipper
@@ -47,7 +47,7 @@ void myinit( int winSize )
 
 //
 	glColor3f(0.0,0.5,0.5);
-	test = new asteroid;
+	/*test = new asteroid;
 	test->edge = new vList;
 	test->edge->info = new vertex;
 	test->edge->next = new vList;
@@ -86,7 +86,7 @@ void myinit( int winSize )
 
 //
 	int blah;
-	//cin >> blah;
+	//cin >> blah;*/
 
 }
 
@@ -110,7 +110,7 @@ void display(void)
 	displayPlayer();
 	
 	glPopMatrix();
-	displayAsteroids(paused);
+	displayAsteroids(paused,filled);
 	glFlush();	
 
 //tesselate test code
@@ -165,6 +165,8 @@ void keyboard( unsigned char key, int x, int y )
 		playerRot += 10;
 	if (key == 'r')
 		playerRot -= 10;
+	if (key == 'f')
+		filled = !filled;
 	if (key == 'p')
 		paused = !paused;
 	if (key == 'm'){
@@ -193,7 +195,10 @@ void reset()
 	
 	viewportInit();
 	playerInit();
+//bool x = noIntersectsVList4Gray(Player,p2);
+//	cout <<"test intersect value should be 0 and is: "<<  x <<endl;
 	generate();
+	//checkCollisions(Aster->info);
 	//cout << "after player init\n" << endl;
 	glutMouseFunc(mouse);
 	glutKeyboardFunc(keyboard);
