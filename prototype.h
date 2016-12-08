@@ -33,6 +33,7 @@ void generate();
 void createVertices(struct vList * edge);
 struct tList *tesselate(struct vList *original);
 void displayAsteroids(bool);
+bool intersect(struct vertex *a, struct vertex *b, struct vertex *c, struct vertex *d);
 
 struct vertex{
 
