@@ -40,6 +40,8 @@ void checkWrap(struct aList *Aster);
 void flipPoint(struct vertex * point, float centerX, float centerY);
 float distAway(float x1, float y1);
 bool isInViewport(struct vertex * vert);
+void displayMissiles();
+void fireMissile(struct mList *mis);
 bool isNear (struct vertex * orig, struct aList * aStart);
 
 

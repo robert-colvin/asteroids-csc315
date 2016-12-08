@@ -46,6 +46,7 @@ void myinit( int winSize )
 	playerRot = 0;
 
 //
+
 	glColor3f(0.0,0.5,0.5);
 	test = new asteroid;
 	test->edge = new vList;
@@ -68,19 +69,19 @@ void myinit( int winSize )
 	test->edge->next->next->next->info->y = 200;
 
 	
-	test->tess = tesselate(test->edge);
+//	test->tess = tesselate(test->edge);
 	
 	cout << "my init test" << test->edge->next->next->info->x << endl;
 	//cout << test->tess->next->info->a->x << endl;
 
 	glColor3f(0.0,0.5,0.5);
-
+/*
 	glBegin(GL_POLYGON);
 		glVertex2f(test->tess->info->a->x,test->tess->info->a->y);
 		glVertex2f(test->tess->info->b->x,test->tess->info->b->y);
 		glVertex2f(test->tess->info->c->x,test->tess->info->c->y);
 	glEnd();
-	glFlush();
+*/	glFlush();
 
 	//test->tess
 
@@ -102,6 +103,8 @@ void display(void)
 	//int test = 1;
 //if(!paused){	
 	viewportInit();
+
+	cout << "in display" << endl;
 	
 	glPushMatrix();
 	glTranslatef(winWidth/2, winHeight/2 + winHeight/15, 0);
@@ -110,10 +113,12 @@ void display(void)
 	displayPlayer();
 	
 	glPopMatrix();
+	displayMissiles();
 	displayAsteroids(paused);
 	checkWrap(Aster);
 	clipperInit();
 	glFlush();	
+
 
 //tesselate test code
 /*
@@ -158,7 +163,7 @@ void keyboard( unsigned char key, int x, int y )
     if ( key == 'q' || key == 'Q') exit(0);
 	
 	if (key == 'a')
-		shotsFired++;
+		
 	if (key == 's')
 		asteroidsHit++;
 	if (key == 'd')
@@ -173,8 +178,9 @@ void keyboard( unsigned char key, int x, int y )
 //		paused = true;
 		reset();
 		glutPostRedisplay();	
-	}if(key == ' '){
-		//fireMissile();
+	}if(key == 'k'){
+		fireMissile(missiles);
+		shotsFired++;
 	}
 	//if (key == 'o')
 	//	startGame = !startGame;
@@ -197,7 +203,7 @@ void reset()
 	clipperInit();
 	playerInit();
 	generate();
-	//cout << "after player init\n" << endl;
+	cout << "after player init\n" << endl;
 	glutMouseFunc(mouse);
 	glutKeyboardFunc(keyboard);
 	glutDisplayFunc(display); 

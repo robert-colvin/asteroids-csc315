@@ -72,6 +72,9 @@ void generate() {
 
 			createVertices(Aster->info->edge);
 
+			Aster->info->tess = tesselate(Aster->info->edge);
+
+			cout << "donetess" << endl;
 			//Check each vertex for insideViewport
 			
 			Aster->next = new aList;
@@ -119,9 +122,10 @@ void createVertices(struct vList * edge) {
 
 		float r = ((((float)rand()/(float)RAND_MAX) +0.5) * rMax*(viewWidth/(rMax*40))); //radius of point between 0.0 and rMax
 
-		float x = r * sin(angle); //Local coords
-		float y = r * cos(angle);
-		
+		float x = r * sin(angle)+0.3; //Local coords
+		float y = r * cos(angle)+0.3;
+
+		cout << "x = " << x << " y = " << y << " r = " << r << " " << endl;		
 
 		edge->info->x = x;
 		edge->info->y = y;
@@ -148,14 +152,16 @@ void displayAsteroids(bool paused) {
 	glPointSize(10.0);
 	glColor3f(1.0, 0.0, 1.0);
 	do{
+		//cout << "stuck ?"<< endl;
 		struct vList *eNow = new vList;
 		//cout << "aster is doing shit\n";
 		eNow = Aster->info->edge;
-		glPushMatrix();
+		//glPushMatrix();
 		//glTranslatef(winWidth/3 + (rand() % 50), winHeight/3 + (rand() % 50), 0);
 		glBegin(GL_LINE_LOOP);
 		do{
 				//Translate local coords to viewport coords
+			//cout << "more stuck" << endl;
 			vertX = ((Aster->info->origin->x /* gridWidth*/) + rMax) +eNow->info->x;
 			//cout << vertX << "            ";
 			vertY = ((Aster->info->origin->y /** gridWidth*/) + rMax) + eNow->info->y;
@@ -172,7 +178,7 @@ void displayAsteroids(bool paused) {
 		Aster->info->origin->x += Aster->info->xSpeed;
 		Aster->info->origin->y += Aster->info->ySpeed;
 		}
-		glPopMatrix();
+		//glPopMatrix();
 		Aster = Aster->next;
 	} while(Aster->next != aStart);
 }
