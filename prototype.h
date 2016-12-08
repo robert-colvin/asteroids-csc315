@@ -35,6 +35,8 @@ struct tList *tesselate(struct vList *original);
 void displayAsteroids(bool);
 bool intersect(struct vertex *a, struct vertex *b, struct vertex *c, struct vertex *d);
 bool isInViewport(struct vertex * vert);
+void displayMissiles();
+void fireMissile(struct mList *mis);
 
 struct vertex{
 

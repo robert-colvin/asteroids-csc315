@@ -108,6 +108,7 @@ void display(void)
 	glScalef(10,10,0);
 	glRotatef(playerRot, 0, 0, 1);
 	displayPlayer();
+	displayMissiles();
 	
 	glPopMatrix();
 	displayAsteroids(paused);
@@ -171,8 +172,8 @@ void keyboard( unsigned char key, int x, int y )
 //		paused = true;
 		reset();
 		glutPostRedisplay();	
-	}if(key == ' '){
-		//fireMissile();
+	}if(key == 'k'){
+		fireMissile(missiles);
 	}
 	//if (key == 'o')
 	//	startGame = !startGame;
