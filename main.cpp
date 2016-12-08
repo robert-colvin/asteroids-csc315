@@ -115,6 +115,8 @@ void display(void)
 	glPopMatrix();
 	displayMissiles();
 	displayAsteroids(paused);
+	checkWrap(Aster);
+	clipperInit();
 	glFlush();	
 
 
@@ -198,6 +200,7 @@ void reset()
 	myinit(winWidth); 
 	
 	viewportInit();
+	clipperInit();
 	playerInit();
 	generate();
 	cout << "after player init\n" << endl;
@@ -207,14 +210,15 @@ void reset()
 	glutIdleFunc(refresh);
 	glutMainLoop();
 }
+
 int main(int argc, char** argv)
 {
 	cout<<"How wide would you like the viewport?"<<endl;
 	cin>>viewWidth;
 	viewWidth *= 1.0;
 
-	winWidth = viewWidth+100;
-	winHeight = viewWidth + 150;
+	winWidth = viewWidth + viewWidth/4.0;
+	winHeight = viewWidth + viewWidth/2.0;
 	
 	scoreboardWidth = winWidth-2;
 	scoreboardHeight = winHeight-(winHeight-100);
