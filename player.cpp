@@ -48,18 +48,32 @@ void setMissleValues(struct mList *mis){
 
 	struct vList *misStart = mis->edge;
 
+	float scale = 4;
+
 	mis->edge->info = new vertex;
 	mis->edge->next = new vList;
-	mis->edge->info->x = -1.0; mis->edge->info->y = -2.0; mis->edge->info->z = 0; mis->edge->info->w = 1;
+	mis->edge->info->x = -1.0*scale; 
+	mis->edge->info->y = -2.0*scale; 
+	mis->edge->info->z = 0; 
+	mis->edge->info->w = 1;
+	rotatePoint(mis->edge->info,0,0,playerRot);
 	mis->edge = mis->edge->next;
 
 	mis->edge->info = new vertex;
 	mis->edge->next = new vList;
-	mis->edge->info->x =  1.0; mis->edge->info->y = -2.0; mis->edge->info->z = 0; mis->edge->info->w = 1;
+	mis->edge->info->x =  1.0*scale; 
+	mis->edge->info->y = -2.0*scale; 
+	mis->edge->info->z = 0; 
+	mis->edge->info->w = 1;
+	rotatePoint(mis->edge->info,0,0,playerRot);
 	mis->edge = mis->edge->next;
 
 	mis->edge->info = new vertex;
-	mis->edge->info->x =  0.0; mis->edge->info->y =  1.0; mis->edge->info->z = 0; mis->edge->info->w = 1;
+	mis->edge->info->x =  0.0*scale; 
+	mis->edge->info->y =  1.0*scale; 
+	mis->edge->info->z = 0; 
+	mis->edge->info->w = 1;
+	rotatePoint(mis->edge->info,0,0,playerRot);
 	mis->edge->next = misStart;
 
 
@@ -77,8 +91,10 @@ void fireMissile(struct mList *mis){
 		mis->origin->x = winWidth/2;
 		mis->origin->y = winHeight/2 + winHeight/15;
 
-		mis->xSpeed = 1;
-		mis->ySpeed = 1;
+		float rotationValue = (playerRot+90) * (3.14159/180);
+
+		mis->xSpeed = 5*cos(rotationValue);
+		mis->ySpeed = 5*sin(rotationValue);
 		
 		numMissiles++;
 	

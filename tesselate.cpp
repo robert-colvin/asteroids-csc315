@@ -105,7 +105,7 @@ struct tList *tesselate(struct vList *original){
 
 	struct vList *copy = copyvList(original);
 
-	struct vList *vTemp = original;
+	struct vList *vTemp = copy;
 	struct tList *newlist = new tList;
 	struct tList *nlStart = newlist;
 	newlist->info = new triangle;
@@ -114,10 +114,13 @@ struct tList *tesselate(struct vList *original){
 	cout << vTemp->next->info->x << endl;
 	while(vTemp->next->next->next != vTemp){
 		cout << "before if statement" << endl;
-		if(crossProd(vTemp->info,vTemp->next->info,vTemp->next->next->info) > 0){
+		cout << "vTemp = " << vTemp << " vTemp next next next = " << vTemp->next->next->next << endl; 
+		cout << crossProd(vTemp->info,vTemp->next->info,vTemp->next->next->info) << endl;
+		if(crossProd(vTemp->info,vTemp->next->info,vTemp->next->next->info) < 0){
 
 			cout << "start of loop" << endl;
-
+			//int testnum;
+			//cin >> testnum;
 
 			struct vertex *thirda = vTemp->info;
                         struct vertex *thirdb = vTemp->next->next->info;
@@ -148,7 +151,7 @@ struct tList *tesselate(struct vList *original){
                                 newlist->info->b = vTemp->next->info;
                                 newlist->info->c = thirdb;
 
-				cout << "cy" << newlist->info->c->y << endl;
+				//cout << "cy" << newlist->info->c->y << endl;
 
 				newlist->next = new tList;
 				newlist = newlist->next;
